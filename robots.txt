@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /storage/
+Disallow: /livewire/
+
+Sitemap: https://tafsirhulm.com/sitemap.xml

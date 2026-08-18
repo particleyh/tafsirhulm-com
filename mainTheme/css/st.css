@@ -1,0 +1,84 @@
+ 
+#stars {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow:  /* قم بإضافة القيم المولدة من الدالة هنا */;
+  animation: animStar 50s linear infinite;
+}
+
+#stars::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow:  /* نفس القيم المولدة من الدالة */;
+}
+
+#stars2 {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:  /* قم بإضافة القيم المولدة من الدالة هنا */;
+  animation: animStar 100s linear infinite;
+}
+
+#stars2::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:  /* نفس القيم المولدة من الدالة */;
+}
+
+#stars3 {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow:  /* قم بإضافة القيم المولدة من الدالة هنا */;
+  animation: animStar 150s linear infinite;
+}
+
+#stars3::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow:  /* نفس القيم المولدة من الدالة */;
+}
+
+#title {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 50px;
+  letter-spacing: 10px;
+  margin-top: -60px;
+  padding-left: 10px;
+}
+
+#title span {
+  background: -webkit-linear-gradient(white, #38495a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}

@@ -1,0 +1,8 @@
+*.tmp
+export.php
+export2.php
+allposts.json
+symbols_data.json
+backups/
+all_site_data*.json
+*.log

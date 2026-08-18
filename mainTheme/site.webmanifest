@@ -1,0 +1,22 @@
+{
+    "name": "تفسير حلم سريع ومجاني | مفسر الأحلام بالذكاء الاصطناعي",
+    "short_name": "الجد حلمي",
+    "description": "تفسير حلم سريع ومجاني بالذكاء الاصطناعي من الجد حلمي. احصل على تفسير فوري لأحلامك خلال ثواني.",
+    "icons": [
+        {
+            "src": "/mainTheme/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/mainTheme/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#FFD700",
+    "background_color": "#1a202c",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
