@@ -621,27 +621,58 @@
       }
 
       async function apiPost(url, body, timeoutMs) {
-        var ctrl = new AbortController();
-        var timer = setTimeout(function () { ctrl.abort(); }, timeoutMs || 45000);
-        try {
-          var res = await fetch(url, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(body),
-            signal: ctrl.signal
-          });
-          var data = null;
-          try { data = await res.json(); } catch (e) {}
-          if (!res.ok) {
-            var err = new Error((data && (data.error || data.message)) || "حدث خطأ، حاول مرة أخرى.");
-            err.status = res.status;
-            err.data = data;
-            throw err;
+        var attempts = 0;
+        var maxAttempts = 3;
+        var lastErr;
+        while (attempts < maxAttempts) {
+          attempts++;
+          var ctrl = new AbortController();
+          var timer = setTimeout(function () { ctrl.abort(); }, timeoutMs || 45000);
+          try {
+            var res = await fetch(url, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(body),
+              signal: ctrl.signal
+            });
+            var data = null;
+            try { data = await res.json(); } catch (e) {}
+            if (res.status === 502 || res.status === 503 || res.status === 504) {
+              lastErr = new Error((data && data.error) || "الخدمة مشغولة، إعادة المحاولة…");
+              lastErr.status = res.status;
+              lastErr.data = data;
+              clearTimeout(timer);
+              if (attempts < maxAttempts) {
+                await new Promise(function (r) { setTimeout(r, 800 * attempts); });
+                continue;
+              }
+              throw lastErr;
+            }
+            if (!res.ok) {
+              var err = new Error((data && (data.error || data.message)) || "حدث خطأ، حاول مرة أخرى.");
+              err.status = res.status;
+              err.data = data;
+              throw err;
+            }
+            return data;
+          } catch (err) {
+            if (err && err.name === "AbortError") {
+              lastErr = new Error("انتهت المهلة، تحقق من اتصالك وحاول مجدداً.");
+              lastErr.name = "AbortError";
+            } else {
+              lastErr = err;
+            }
+            if (attempts < maxAttempts && (!lastErr.status || lastErr.status >= 500 || lastErr.name === "AbortError")) {
+              clearTimeout(timer);
+              await new Promise(function (r) { setTimeout(r, 800 * attempts); });
+              continue;
+            }
+            throw lastErr;
+          } finally {
+            clearTimeout(timer);
           }
-          return data;
-        } finally {
-          clearTimeout(timer);
         }
+        throw lastErr || new Error("حدث خطأ، حاول مرة أخرى.");
       }
 
       /* ── Gender ── */

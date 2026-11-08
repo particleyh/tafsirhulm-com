@@ -3,34 +3,67 @@ const SHARE_API = "https://tafsirhulm.com/api/share";
 const API_KEY = "x3HY7BBYp5q625OJXQ8h6LkVLCKMDYAx";
 
 async function post(url, body, timeoutMs = 45000) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": API_KEY,
-      },
-      body: JSON.stringify(body),
-      signal: controller.signal,
-    });
-    let data = null;
+  const maxAttempts = 3;
+  let lastErr;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      data = await res.json();
-    } catch (_) {}
-    if (!res.ok) {
-      const err = new Error(
-        (data && (data.error || data.message)) || "حدث خطأ، حاول مرة أخرى."
-      );
-      err.status = res.status;
-      err.data = data;
-      throw err;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": API_KEY,
+        },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
+      let data = null;
+      try {
+        data = await res.json();
+      } catch (_) {}
+      if (res.status === 502 || res.status === 503 || res.status === 504) {
+        lastErr = new Error((data && data.error) || "الخدمة مشغولة، أعد المحاولة…");
+        lastErr.status = res.status;
+        lastErr.data = data;
+        clearTimeout(timer);
+        if (attempt < maxAttempts) {
+          await new Promise((r) => setTimeout(r, 800 * attempt));
+          continue;
+        }
+        throw lastErr;
+      }
+      if (!res.ok) {
+        const err = new Error(
+          (data && (data.error || data.message)) || "حدث خطأ، حاول مرة أخرى."
+        );
+        err.status = res.status;
+        err.data = data;
+        throw err;
+      }
+      return data;
+    } catch (err) {
+      if (err && err.name === "AbortError") {
+        lastErr = new Error("انتهت المهلة، تحقق من اتصالك وحاول مجدداً.");
+        lastErr.name = "AbortError";
+      } else {
+        lastErr = err;
+      }
+      const retryable =
+        !lastErr.status ||
+        lastErr.status >= 500 ||
+        lastErr.name === "AbortError";
+      if (attempt < maxAttempts && retryable) {
+        clearTimeout(timer);
+        await new Promise((r) => setTimeout(r, 800 * attempt));
+        continue;
+      }
+      throw lastErr;
+    } finally {
+      clearTimeout(timer);
     }
-    return data;
-  } finally {
-    clearTimeout(timer);
   }
+  throw lastErr || new Error("حدث خطأ، حاول مرة أخرى.");
 }
 
 export async function startInterpretation({ dream, gender }) {
