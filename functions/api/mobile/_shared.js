@@ -53,13 +53,23 @@ function isTrustedOrigin(request) {
   if (allowed.some((a) => referer.startsWith(a + "/") || referer === a)) {
     return true;
   }
-  // Pages preview / same-project deploy hosts (optional, keep strict for prod)
   return false;
 }
 
+/** Legacy grace: old Play builds send no key. Cutoff = 2026-12-09 UTC. */
+const LEGACY_AUTH_UNTIL = Date.UTC(2026, 11, 9, 0, 0, 0); // month is 0-indexed → Dec 9 2026
+
+export function isLegacyAuthOpen() {
+  return Date.now() < LEGACY_AUTH_UNTIL;
+}
+
 /**
- * Auth: valid X-API-Key, OR browser request from tafsirhulm.com.
- * Returns null if authorized, else a Response (401/503).
+ * Auth:
+ * - valid X-API-Key → ok
+ * - browser from tafsirhulm.com → ok
+ * - missing key during legacy grace window → ok (old Play app)
+ * - wrong key → always 401
+ * Returns null if authorized, else a Response.
  */
 export function requireApiKey(request, env) {
   const expected = env.API_KEY;
@@ -67,14 +77,17 @@ export function requireApiKey(request, env) {
     return json({ status: "error", error: "خدمة غير مهيأة." }, 503);
   }
   const provided = getApiKey(request);
-  if (provided && timingSafeEqual(provided, expected)) {
-    return null;
+  if (provided) {
+    if (timingSafeEqual(provided, expected)) return null;
+    return json(
+      { status: "error", error: "مفتاح API غير صالح." },
+      401
+    );
   }
-  if (!provided && isTrustedOrigin(request)) {
-    return null;
-  }
+  if (isTrustedOrigin(request)) return null;
+  if (isLegacyAuthOpen()) return null; // old app: no key yet
   return json(
-    { status: "error", error: "مفتاح API غير صالح أو مفقود." },
+    { status: "error", error: "مفتاح API مفقود. حدّث التطبيق." },
     401
   );
 }

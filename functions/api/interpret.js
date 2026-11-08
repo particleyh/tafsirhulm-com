@@ -165,6 +165,8 @@ function timingSafeEqual(a, b) {
   return diff === 0;
 }
 
+const LEGACY_AUTH_UNTIL = Date.UTC(2026, 11, 9, 0, 0, 0); // Dec 9 2026 UTC
+
 function requireApiKey(request, env) {
   const expected = env.API_KEY;
   if (!expected) return json({ error: "خدمة غير مهيأة." }, 503);
@@ -173,7 +175,10 @@ function requireApiKey(request, env) {
     request.headers.get("authorization") ||
     "";
   const provided = header.replace(/^Bearer\s+/i, "").trim();
-  if (provided && timingSafeEqual(provided, expected)) return null;
+  if (provided) {
+    if (timingSafeEqual(provided, expected)) return null;
+    return json({ error: "مفتاح API غير صالح." }, 401);
+  }
   const origin = (request.headers.get("origin") || "").toLowerCase();
   const referer = (request.headers.get("referer") || "").toLowerCase();
   const allowed = [
@@ -184,8 +189,9 @@ function requireApiKey(request, env) {
   const trusted =
     allowed.some((a) => origin === a || origin.startsWith(a + "/")) ||
     allowed.some((a) => referer.startsWith(a + "/") || referer === a);
-  if (!provided && trusted) return null;
-  return json({ error: "مفتاح API غير صالح أو مفقود." }, 401);
+  if (trusted) return null;
+  if (Date.now() < LEGACY_AUTH_UNTIL) return null;
+  return json({ error: "مفتاح API مفقود. حدّث التطبيق." }, 401);
 }
 
 export async function onRequestPost({ request, env }) {
