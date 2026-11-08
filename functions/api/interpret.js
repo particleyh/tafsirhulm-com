@@ -165,7 +165,7 @@ function timingSafeEqual(a, b) {
   return diff === 0;
 }
 
-const LEGACY_AUTH_UNTIL = Date.UTC(2026, 11, 9, 0, 0, 0); // Dec 9 2026 UTC
+const LEGACY_AUTH_UNTIL = Date.UTC(2026, 10, 18, 0, 0, 0); // Nov 18 2026 UTC
 
 function requireApiKey(request, env) {
   const expected = env.API_KEY;

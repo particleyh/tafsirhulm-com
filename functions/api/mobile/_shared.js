@@ -56,8 +56,8 @@ function isTrustedOrigin(request) {
   return false;
 }
 
-/** Legacy grace: old Play builds send no key. Cutoff = 2026-12-09 UTC. */
-const LEGACY_AUTH_UNTIL = Date.UTC(2026, 11, 9, 0, 0, 0); // month is 0-indexed → Dec 9 2026
+/** Legacy grace: old Play builds send no key. Cutoff = 2026-11-18 UTC (10 days). */
+const LEGACY_AUTH_UNTIL = Date.UTC(2026, 10, 18, 0, 0, 0); // month 0-indexed → Nov 18 2026
 
 export function isLegacyAuthOpen() {
   return Date.now() < LEGACY_AUTH_UNTIL;
