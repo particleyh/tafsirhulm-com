@@ -1,5 +1,5 @@
 const MODEL = "@cf/qwen/qwen3-30b-a3b-fp8";
-const IP_DAILY_LIMIT = 5;
+const COOLDOWN_MS = 30_000;
 const MAX_DREAM_LEN = 3000;
 const MIN_DREAM_LEN = 10;
 const CACHE_TTL_SECONDS = 60 * 60 * 24 * 7;
@@ -38,30 +38,6 @@ async function sha256Hex(text) {
     .join("");
 }
 
-async function getRateCount(cacheKey) {
-  try {
-    const hit = await caches.default.match(cacheKey);
-    if (!hit) return 0;
-    const n = parseInt(await hit.text(), 10);
-    return Number.isFinite(n) ? n : 0;
-  } catch (_) {
-    return 0;
-  }
-}
-
-async function bumpRateCount(cacheKey, count) {
-  try {
-    await caches.default.put(
-      cacheKey,
-      new Response(String(count), {
-        headers: {
-          "cache-control": `public, max-age=${60 * 60 * 24}`,
-        },
-      })
-    );
-  } catch (_) {}
-}
-
 async function cacheGet(key) {
   try {
     const hit = await caches.default.match(key);
@@ -71,15 +47,39 @@ async function cacheGet(key) {
   }
 }
 
-async function cachePut(key, value) {
+async function cachePut(key, value, maxAge) {
   try {
     await caches.default.put(
       key,
       new Response(JSON.stringify(value), {
         headers: {
           "content-type": "application/json; charset=utf-8",
-          "cache-control": `public, max-age=${CACHE_TTL_SECONDS}`,
+          "cache-control": `public, max-age=${maxAge}`,
         },
+      })
+    );
+  } catch (_) {}
+}
+
+async function getLastUsed(ipHash) {
+  try {
+    const hit = await caches.default.match(
+      new Request(`https://cooldown.internal/last/${ipHash}`)
+    );
+    if (!hit) return 0;
+    const n = parseInt(await hit.text(), 10);
+    return Number.isFinite(n) ? n : 0;
+  } catch (_) {
+    return 0;
+  }
+}
+
+async function setLastUsed(ipHash, ts) {
+  try {
+    await caches.default.put(
+      new Request(`https://cooldown.internal/last/${ipHash}`),
+      new Response(String(ts), {
+        headers: { "cache-control": "public, max-age=86400" },
       })
     );
   } catch (_) {}
@@ -190,16 +190,17 @@ export async function onRequestPost({ request, env }) {
       request.headers.get("cf-connecting-ip") ||
       request.headers.get("x-forwarded-for") ||
       "unknown";
-    const day = new Date().toISOString().slice(0, 10);
-    const rateKey = new Request(
-      `https://rate.internal/interpret/v2/${day}/${await sha256Hex(ip)}`
-    );
-    const used = await getRateCount(rateKey);
-    if (used >= IP_DAILY_LIMIT) {
+    const ipHash = await sha256Hex(ip);
+    const now = Date.now();
+    const lastUsed = await getLastUsed(ipHash);
+    const elapsed = now - lastUsed;
+
+    if (lastUsed && elapsed < COOLDOWN_MS) {
+      const waitSec = Math.ceil((COOLDOWN_MS - elapsed) / 1000);
       return json(
         {
-          error:
-            `وصلت الحد اليومي للاستخدام المجاني (${IP_DAILY_LIMIT} تفسيرات). عد غداً أو تصفح رموز الأحلام.`,
+          error: `انتظر ${waitSec} ثانية بين كل تفسير وآخر.`,
+          retry_after: waitSec,
         },
         429
       );
@@ -211,11 +212,9 @@ export async function onRequestPost({ request, env }) {
     );
     const cached = await cacheGet(cacheKey);
     if (cached && cached.analysis) {
-      await bumpRateCount(rateKey, used + 1);
+      await setLastUsed(ipHash, now);
       return json({ ...cached, cached: true });
     }
-
-    await bumpRateCount(rateKey, used + 1);
 
     let aiResult;
     try {
@@ -240,7 +239,8 @@ export async function onRequestPost({ request, env }) {
     const parsed = sanitizeResult(extractJson(raw));
 
     if (parsed) {
-      await cachePut(cacheKey, parsed);
+      await cachePut(cacheKey, parsed, CACHE_TTL_SECONDS);
+      await setLastUsed(ipHash, now);
       return json(parsed);
     }
 
@@ -251,7 +251,8 @@ export async function onRequestPost({ request, env }) {
         symbols: [],
         conclusion: "",
       };
-      await cachePut(cacheKey, fallback);
+      await cachePut(cacheKey, fallback, CACHE_TTL_SECONDS);
+      await setLastUsed(ipHash, now);
       return json(fallback);
     }
 

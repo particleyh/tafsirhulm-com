@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="الجد حلمي" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/mainTheme/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/mainTheme/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/mainTheme/apple-touch-icon.png" />
+  <meta name="theme-color" content="#FFD700" />
+  <meta name="description" content="دليل رموز الأحلام الشائعة وتفسيراتها: الحيوانات، الجسد، الأماكن، العلاقات، الثراء والروحانية — من الجد حلمي." />
+  <title>رموز الأحلام الشائعة وتفسيراتها | دليل الجد حلمي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg-soft: #0f1524;
+      --surface: #141b2d;
+      --line: rgba(255, 215, 0, 0.14);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --gold: #ffd700;
+      --gold-deep: #e6b800;
+      --gold-soft: rgba(255, 215, 0, 0.12);
+      --text: #eef1f8;
+      --muted: #9aa3b8;
+      --radius: 18px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --font: "Tajawal", system-ui, sans-serif;
+      --font-display: "Amiri", "Tajawal", serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 32px)); margin-inline: auto; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 14, 26, 0.78);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; gap: 16px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.05rem; color: var(--gold);
+    }
+    .brand img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-links a {
+      padding: 8px 14px; border-radius: 999px;
+      color: var(--muted); font-weight: 500; font-size: 0.95rem; transition: 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--gold); background: var(--gold-soft); }
+    .nav-cta {
+      background: var(--gold) !important; color: #10141f !important; font-weight: 700 !important;
+    }
+    .nav-cta:hover { background: var(--gold-deep) !important; }
+    .nav-toggle {
+      display: none; background: none; border: 1px solid var(--line-soft);
+      border-radius: 12px; width: 44px; height: 44px; cursor: pointer;
+      color: var(--text); font-size: 1.2rem;
+    }
+
+    .page-head {
+      padding: 56px 0 24px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 215, 0, 0.12), transparent 60%),
+        var(--bg);
+      text-align: center;
+    }
+    .page-head .crumb {
+      display: inline-block; color: var(--muted); font-size: 0.9rem; margin-bottom: 14px;
+    }
+    .page-head .crumb a { color: var(--gold); }
+    .page-head h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      background: linear-gradient(135deg, #fff 20%, var(--gold) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .page-head p { color: var(--muted); max-width: 620px; margin-inline: auto; }
+
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      padding: 20px 0 8px;
+    }
+    .toc a {
+      background: var(--surface); border: 1px solid var(--line-soft);
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 0.92rem; font-weight: 600; color: var(--muted); transition: 0.2s;
+    }
+    .toc a:hover { color: var(--gold); border-color: rgba(255,215,0,0.4); }
+
+    section.cat { padding: 40px 0; }
+    section.cat + section.cat { border-top: 1px solid var(--line-soft); }
+    .cat-head { margin-bottom: 24px; }
+    .cat-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .cat-head h2 .em { font-size: 1.4rem; }
+    .cat-head .count {
+      color: var(--gold); font-size: 0.85rem; font-weight: 700;
+      background: var(--gold-soft); border: 1px solid var(--line);
+      padding: 3px 12px; border-radius: 999px; font-family: var(--font);
+    }
+    .cat-head p { color: var(--muted); font-size: 0.96rem; margin-top: 6px; }
+    .sym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .sym-card {
+      background: var(--surface); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 20px;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: 0.25s; position: relative; overflow: hidden;
+    }
+    .sym-card::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top right, rgba(255,215,0,0.08), transparent 60%);
+      opacity: 0; transition: 0.25s; pointer-events: none;
+    }
+    .sym-card:hover {
+      border-color: rgba(255, 215, 0, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .sym-card:hover::after { opacity: 1; }
+    .sym-card h3 { color: var(--gold); font-size: 1.05rem; font-weight: 700; }
+    .sym-card p {
+      color: var(--muted); font-size: 0.9rem; line-height: 1.7;
+      display: -webkit-box; -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .sym-card .go {
+      margin-top: auto; padding-top: 8px;
+      color: var(--gold); font-size: 0.86rem; font-weight: 700;
+      opacity: 0.7; transition: 0.2s;
+    }
+    .sym-card:hover .go { opacity: 1; }
+
+    .cta-strip {
+      margin: 32px 0 56px;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,215,0,0.12), transparent),
+        var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(28px, 5vw, 44px);
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .cta-strip h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 3vw, 1.7rem); margin-bottom: 8px;
+    }
+    .cta-strip p { color: var(--muted); max-width: 480px; }
+    .btn-gold {
+      background: var(--gold); color: #10141f;
+      border-radius: 999px; padding: 15px 32px;
+      font-size: 1.05rem; font-weight: 800; transition: 0.2s; white-space: nowrap;
+    }
+    .btn-gold:hover { background: var(--gold-deep); transform: translateY(-2px); }
+
+    footer {
+      border-top: 1px solid var(--line-soft);
+      padding: 36px 0; background: var(--bg-soft);
+    }
+    .footer-inner {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      justify-content: space-between; align-items: center;
+    }
+    .footer-inner .brand { font-size: 1rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px 26px; }
+    .footer-links a { color: var(--muted); font-size: 0.92rem; transition: 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom {
+      margin-top: 24px; padding-top: 18px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--muted); font-size: 0.85rem; text-align: center;
+    }
+    .footer-bottom a { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: grid; place-items: center; }
+      .nav-links {
+        position: fixed; inset: 68px 0 auto 0;
+        background: rgba(10, 14, 26, 0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column; padding: 20px; gap: 8px;
+        border-bottom: 1px solid var(--line-soft);
+        transform: translateY(-120%); transition: 0.3s;
+      }
+      .nav-links.open { transform: translateY(0); }
+      .nav-links a {
+        width: 100%; text-align: center; padding: 14px;
+        font-size: 1.05rem; background: rgba(255,255,255,0.04); border-radius: 12px;
+      }
+      .page-head { padding: 40px 0 16px; }
+      section.cat { padding: 32px 0; }
+      .cta-strip { text-align: center; flex-direction: column; }
+      .btn-gold { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <img src="/mainTheme/images/logo.png" alt="الجد حلمي" width="40" height="40" />
+        <span>الجد حلمي</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="القائمة" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">تفسير حلم</a></li>
+        <li><a href="/dream-symbols/" class="active" aria-current="page">رموز الأحلام</a></li>
+        <li><a href="/blogs/all/">التفسيرات</a></li>
+        <li><a href="/about">من نحن</a></li>
+        <li><a href="/contact">تواصل معنا</a></li>
+        <li><a href="/#dream" class="nav-cta">فسّر حلمك</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="container">
+      <span class="crumb"><a href="/">الرئيسية</a> / رموز الأحلام</span>
+      <h1>دليل رموز الأحلام الشائعة</h1>
+      <p>اختر الرمز الذي ظهر في حلمك لقراءة تفسيره الكامل: دلالاته في كتب التفسير، وارتباطه بسياق حياتك وحالتك النفسية.</p>
+      <nav class="toc" aria-label="أقسام الدليل">
+        <a href="#animals">🐾 الحيوانات</a>
+        <a href="#body">🫀 الجسد</a>
+        <a href="#movement">🧭 الحركة والتنقل</a>
+        <a href="#places">🏕️ الأماكن</a>
+        <a href="#relationships">👨‍👩‍👧 العلاقات</a>
+        <a href="#spirituality">🌙 الروحانية</a>
+        <a href="#wealth">💎 الثراء</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="cat" id="animals">
+      <div class="cat-head">
+        <h2><span class="em">🐾</span> تفسير الحيوانات في المنام <span class="count">5 رموز</span></h2>
+        <p>الحيوانات من أكثر الرموز ظهوراً: كل رمز له دلالة متغيرة حسب موقفه منك وهويتك.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/animals/snake/">
+          <h3>الثعبان</h3>
+          <p>العداوة الخفية، الخوف، أو القوة الكامنة — يتغير المعنى بحسب موقعه وسلوكه.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/animals/lion/">
+          <h3>الأسد</h3>
+          <p>سلطة وقوة وخوف مُقدَّر — ويرمز أيضاً لشخص مسيطر في حياتك.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/animals/dog/">
+          <h3>الكلب</h3>
+          <p>صحبة وولاء وحماية — أو مواجهة مع شخص قريب حسب سلوكه معك.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/animals/cat/">
+          <h3>القطة</h3>
+          <p>استقلالية وحِيَل خفية وفضول — وغالباً ترتبط بصفات الأنوثة والاستقلال.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/animals/fish/">
+          <h3>السمكة</h3>
+          <p>الرزق والعطاء والحياة الكامنة تحت السطح — وأكثرها بركة عند كثرة العدد.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat" id="body">
+      <div class="cat-head">
+        <h2><span class="em">🫀</span> تفسير رموز الجسد في المنام <span class="count">4 رموز</span></h2>
+        <p>ما يحدث للجسد في الحلم غالباً ما يعكس توتراً داخلياً أو تحولاً في الشعور بالذات.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/body/teeth/">
+          <h3>سقوط الأسنان</h3>
+          <p>من أكثر الرموز إثارة للقلق — يرتبط بالتوتر، الخوف من التغيّر أو فقدان التحكم.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/body/blood/">
+          <h3>الدم</h3>
+          <p>طاقة وحياة وصلة رابطة — أو خوف من المرض والإنهاك حسب كميته ومصدره.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/body/hair/">
+          <h3>الشعر</h3>
+          <p>القوة والهيبة والصحة — والتشذير أو الحلاقة رمز للخسارة أو التحرر.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/body/eye/">
+          <h3>العين</h3>
+          <p>الوعي والاطلاع والحكم — رؤياها بوضوح ارتباط بصحة الإدراك واليقظة.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat" id="movement">
+      <div class="cat-head">
+        <h2><span class="em">🧭</span> تفسير الحركة والتنقل <span class="count">5 رموز</span></h2>
+        <p>كيف تحرّك أو تسقط أو ترتفع في الحلم يعكس شعورك بالتحكم في مسار حياتك.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/movement/car/">
+          <h3>السيارة</h3>
+          <p>مسار حياتك ومقدار تحكمك: السائق، السرعة، الطريق — كلها تخصّك أنت.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/movement/falling/">
+          <h3>السقوط</h3>
+          <p>فقدان توازن وقلق من التعثر — من أكثر الأحلام شيوعاً عموماً.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/movement/flying/">
+          <h3>الطيران</h3>
+          <p>تحرر وارتفاع وثقة — أو رغبة في الهروب من ضغط يصل بك إلى الأعلى.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/movement/travel/">
+          <h3>السفر</h3>
+          <p>انتقال وتغيير ورحلة داخلية — وتفسيره يعتمد على الوجهة وهوية الرفيق.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/movement/school/">
+          <h3>المدرسة</h3>
+          <p>اختبار وواجب وحضور متأخر — يعكس التوتر أمام التقدير أو المسؤولية.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat" id="places">
+      <div class="cat-head">
+        <h2><span class="em">🏕️</span> تفسير الأماكن في المنام <span class="count">4 رموز</span></h2>
+        <p>المكان في الحلم يعطيه معناه: المكان الآمن يختلف عن المكان الذي يهدّدك.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/places/house/">
+          <h3>البيت</h3>
+          <p>يمثل العالم الداخلي للرائي: الأمان والخصوصية والاستقرار.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/places/sea/">
+          <h3>البحر</h3>
+          <p>المجهول والانفعالات العميقة — هادئه رحمة وعاصفه توتر قائم.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/places/fire/">
+          <h3>النار</h3>
+          <p>طاقة قوية: تطهير وغضب وتضحية — تختلف بالكثير بحسب تعاملك معها.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/places/rain/">
+          <h3>المطر</h3>
+          <p>الرحمة والتجدد والانفراج — أو الضغط والفوضى إذا جاء عاصفاً.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat" id="relationships">
+      <div class="cat-head">
+        <h2><span class="em">👨‍👩‍👧</span> تفسير العلاقات والأسرة <span class="count">4 رموز</span></h2>
+        <p>أحلام الأشخاص القريبين تدور غالباً حول الروابط والمسؤوليات والتحولات العائلية.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/relationships/marriage/">
+          <h3>الزواج</h3>
+          <p>شراكة أو التزام أو انتقال في الحال — يتغير بحسب هوية من رأيته.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/relationships/pregnancy/">
+          <h3>الحمل</h3>
+          <p>نمو شيء جديد: مشروع أو مسؤولية أو أمل يتشكل ببطء.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/relationships/baby/">
+          <h3>الطفل</h3>
+          <p>بداية بريئة وذات داخلية جديدة — وغالباً ما يعكس حنانك وطموحك.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/relationships/mother/">
+          <h3>الأم</h3>
+          <p>حنان واحتضان وذاكرة الأمان — ووجودها في الحلم راحة غالباً.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat" id="spirituality">
+      <div class="cat-head">
+        <h2><span class="em">🌙</span> تفسير الروحانية في المنام <span class="count">3 رموز</span></h2>
+        <p>رموز روحية عميقة تتغير دلالاتها كثيراً باختلاف الخلفية الثقافية والشعور الداخلي.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/spirituality/death/">
+          <h3>الموت</h3>
+          <p>لا يعني موتاً حقيقياً — تحول أو نهاية مرحلة أو خوف من الفقد غالباً.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/spirituality/prayer/">
+          <h3>الصلاة</h3>
+          <p>طمأنينة وطلب عون واستقامة — ورجوع إلى ما يثبت القلب.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/spirituality/crying/">
+          <h3>البكاء</h3>
+          <p>انفراج وفاضح الداخلي — البكاء الهادئ في الحلم راحة يُنتظر عادة.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat" id="wealth">
+      <div class="cat-head">
+        <h2><span class="em">💎</span> تفسير الثراء في المنام <span class="count">4 رموز</span></h2>
+        <p>رموز المال تكثر عند التوتر المالي أو الطموح — ولا تعني بالضرورة مالاً حقيقياً.</p>
+      </div>
+      <div class="sym-grid">
+        <a class="sym-card" href="/dream-symbols/wealth/money/">
+          <h3>المال</h3>
+          <p>الرزق والقيمة والقدرة — وقد يعكس قلق الالتزامات أو المقارنة بالآخرين.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/wealth/gold/">
+          <h3>الذهب</h3>
+          <p>القيمة والزينة والمكاسب — أو عبء وحسد ومسؤولية ثقيلة.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/wealth/ring/">
+          <h3>الخاتم</h3>
+          <p>عهد ووعد وربط — قراءته تعتمد على مَن أعطاك إياه ومن أخذه.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+        <a class="sym-card" href="/dream-symbols/wealth/key/">
+          <h3>المفتاح</h3>
+          <p>حل وفرصة ووصول لطريق مغلق — أو سراً كُلّفت بحفظه.</p>
+          <span class="go">اقرأ التفسير ←</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="cta-strip">
+      <div>
+        <h2>لم تجد رمز حلمك؟</h2>
+        <p>اكتب حلمك كاملاً وسيقوم الجد حلمي بتحليل رموزه تلقائياً خلال ثوانٍ.</p>
+      </div>
+      <a class="btn-gold" href="/#dream">فسّر حلمك الآن</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="/" class="brand">
+          <img src="/mainTheme/images/logo.png" alt="الجد حلمي" width="40" height="40" />
+          <span>الجد حلمي</span>
+        </a>
+        <div class="footer-links">
+          <a href="/">تفسير حلم</a>
+          <a href="/dream-symbols/">رموز الأحلام</a>
+          <a href="/blogs/all/">جميع التفسيرات</a>
+          <a href="/about">من نحن</a>
+          <a href="/contact">تواصل معنا</a>
+          <a href="/privacy/">سياسة الخصوصية</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 الجد حلمي. جميع الحقوق محفوظة. — تصميم وبرمجة <a href="https://eram-design.com" target="_blank" rel="noopener sponsored">إرم ديزاين</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var t = document.getElementById("nav-toggle");
+    var n = document.getElementById("nav-links");
+    t.addEventListener("click", function () {
+      var open = n.classList.toggle("open");
+      t.textContent = open ? "✕" : "☰";
+      t.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    n.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        n.classList.remove("open");
+        t.textContent = "☰";
+        t.setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
+</body>
+</html>
