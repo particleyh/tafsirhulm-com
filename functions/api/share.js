@@ -1,6 +1,6 @@
 const TOKEN_BYTES = 16;
 const SHARE_TTL_SECONDS = 60 * 60 * 24 * 365; // 1 year
-const DAILY_SHARE_CAP = 30;
+const DAILY_SHARE_CAP = 100;
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {

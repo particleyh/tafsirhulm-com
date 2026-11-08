@@ -21,7 +21,7 @@ import {
 const COOLDOWN_MS = 10_000;
 const NAMESPACE = "mstart";
 const QUESTION_COUNT = 4;
-const DAILY_AI_CAP = 40;
+const DAILY_AI_CAP = 150; // high enough for carrier NAT (shared mobile IPs)
 
 const SYSTEM_PROMPT = `أنت "الجد حلمي"، مفسر أحلام عربي محترف.
 سيصلك نص حلم من مستخدم. اكتب له ${QUESTION_COUNT} أسئلة توضيحية قصيرة (سطر واحد لكل سؤال) تساعد على فهم الحلم وتفسيره بشكل أدق: مشاعره أثناء الحلم، هوية الأشخاص الظاهرين، هل يكرر الحلم، وأي تفاصيل ناقصة.

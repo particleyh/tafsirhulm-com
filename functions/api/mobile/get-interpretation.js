@@ -20,7 +20,7 @@ import {
 
 const COOLDOWN_MS = 10_000;
 const NAMESPACE = "mget";
-const DAILY_AI_CAP = 40;
+const DAILY_AI_CAP = 150; // high enough for carrier NAT (shared mobile IPs)
 
 const SYSTEM_PROMPT = `أنت "الجد حلمي"، مفسر أحلام عربي محترف بخبرة في كتب التفسير والنفسيات.
 فسّر الحلم الذي يصلك مع مراعاة إجابات الحالم على الأسئلة التوضيحية إن وُجدت.
