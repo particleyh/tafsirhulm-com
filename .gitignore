@@ -6,3 +6,4 @@ symbols_data.json
 backups/
 all_site_data*.json
 *.log
+.wrangler/
