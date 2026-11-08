@@ -14,11 +14,14 @@ import {
   callAI,
   normalizeDream,
   generateGuestId,
+  requireApiKey,
+  checkDailyCap,
 } from "./_shared.js";
 
 const COOLDOWN_MS = 10_000;
 const NAMESPACE = "mstart";
 const QUESTION_COUNT = 4;
+const DAILY_AI_CAP = 40;
 
 const SYSTEM_PROMPT = `أنت "الجد حلمي"، مفسر أحلام عربي محترف.
 سيصلك نص حلم من مستخدم. اكتب له ${QUESTION_COUNT} أسئلة توضيحية قصيرة (سطر واحد لكل سؤال) تساعد على فهم الحلم وتفسيره بشكل أدق: مشاعره أثناء الحلم، هوية الأشخاص الظاهرين، هل يكرر الحلم، وأي تفاصيل ناقصة.
@@ -50,6 +53,9 @@ export async function onRequestOptions() {
 
 export async function onRequestPost({ request, env }) {
   try {
+    const authErr = requireApiKey(request, env);
+    if (authErr) return authErr;
+
     if (!env.AI) {
       return json(
         { status: "error", error: "خدمة التفسير غير متاحة حالياً." },
@@ -104,6 +110,18 @@ export async function onRequestPost({ request, env }) {
           status: "error",
           error: `انتظر ${waitSec} ثانية بين كل طلب وآخر.`,
           retry_after: waitSec,
+        },
+        429
+      );
+    }
+
+    const daily = await checkDailyCap(env, ip, DAILY_AI_CAP, "mstart_day");
+    if (daily.limited) {
+      return json(
+        {
+          status: "error",
+          error: "وصلت للحد اليومي. حاول غداً.",
+          retry_after: daily.retry_after,
         },
         429
       );

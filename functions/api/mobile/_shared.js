@@ -6,7 +6,7 @@ const CACHE_TTL_SECONDS = 60 * 60 * 24 * 7;
 const CORS_HEADERS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "POST, OPTIONS",
-  "access-control-allow-headers": "content-type",
+  "access-control-allow-headers": "content-type, x-api-key, authorization",
 };
 
 export function json(body, status = 200) {
@@ -22,6 +22,89 @@ export function json(body, status = 200) {
 
 export function preflight() {
   return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
+function timingSafeEqual(a, b) {
+  const enc = new TextEncoder();
+  const bufA = enc.encode(String(a));
+  const bufB = enc.encode(String(b));
+  if (bufA.length !== bufB.length) return false;
+  let diff = 0;
+  for (let i = 0; i < bufA.length; i++) diff |= bufA[i] ^ bufB[i];
+  return diff === 0;
+}
+
+export function getApiKey(request) {
+  const header =
+    request.headers.get("x-api-key") ||
+    request.headers.get("authorization") ||
+    "";
+  const trimmed = header.replace(/^Bearer\s+/i, "").trim();
+  return trimmed;
+}
+
+function isTrustedOrigin(request) {
+  const origin = (request.headers.get("origin") || "").toLowerCase();
+  const referer = (request.headers.get("referer") || "").toLowerCase();
+  const allowed = ["https://tafsirhulm.com", "http://tafsirhulm.com", "https://www.tafsirhulm.com"];
+  if (allowed.some((a) => origin === a || origin.startsWith(a + "/"))) {
+    return true;
+  }
+  if (allowed.some((a) => referer.startsWith(a + "/") || referer === a)) {
+    return true;
+  }
+  // Pages preview / same-project deploy hosts (optional, keep strict for prod)
+  return false;
+}
+
+/**
+ * Auth: valid X-API-Key, OR browser request from tafsirhulm.com.
+ * Returns null if authorized, else a Response (401/503).
+ */
+export function requireApiKey(request, env) {
+  const expected = env.API_KEY;
+  if (!expected) {
+    return json({ status: "error", error: "خدمة غير مهيأة." }, 503);
+  }
+  const provided = getApiKey(request);
+  if (provided && timingSafeEqual(provided, expected)) {
+    return null;
+  }
+  if (!provided && isTrustedOrigin(request)) {
+    return null;
+  }
+  return json(
+    { status: "error", error: "مفتاح API غير صالح أو مفقود." },
+    401
+  );
+}
+
+/** Sliding daily cap per IP (best-effort via Cache API). Returns wait info or null. */
+export async function checkDailyCap(env, ip, limit, namespace = "dcap") {
+  try {
+    const day = new Date().toISOString().slice(0, 10);
+    const idHash = await sha256Hex(`${namespace}|${ip}|${day}`);
+    const key = new Request(`https://cooldown.internal/${namespace}/${idHash}`);
+    const hit = await caches.default.match(key);
+    let count = 0;
+    if (hit) {
+      const n = parseInt(await hit.text(), 10);
+      if (Number.isFinite(n)) count = n;
+    }
+    if (count >= limit) {
+      const resetSec = 60 * 60 * 24;
+      return { limited: true, retry_after: resetSec, remaining: 0 };
+    }
+    await caches.default.put(
+      key,
+      new Response(String(count + 1), {
+        headers: { "cache-control": "public, max-age=86400" },
+      })
+    );
+    return { limited: false, remaining: limit - count - 1 };
+  } catch (_) {
+    return { limited: false, remaining: limit };
+  }
 }
 
 export async function sha256Hex(text) {

@@ -1,5 +1,6 @@
 const API_BASE = "https://tafsirhulm.com/api/mobile";
 const SHARE_API = "https://tafsirhulm.com/api/share";
+const API_KEY = "x3HY7BBYp5q625OJXQ8h6LkVLCKMDYAx";
 
 async function post(url, body, timeoutMs = 45000) {
   const controller = new AbortController();
@@ -7,7 +8,10 @@ async function post(url, body, timeoutMs = 45000) {
   try {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": API_KEY,
+      },
       body: JSON.stringify(body),
       signal: controller.signal,
     });

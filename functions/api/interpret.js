@@ -155,8 +155,44 @@ function sanitizeResult(data) {
   };
 }
 
+function timingSafeEqual(a, b) {
+  const enc = new TextEncoder();
+  const bufA = enc.encode(String(a));
+  const bufB = enc.encode(String(b));
+  if (bufA.length !== bufB.length) return false;
+  let diff = 0;
+  for (let i = 0; i < bufA.length; i++) diff |= bufA[i] ^ bufB[i];
+  return diff === 0;
+}
+
+function requireApiKey(request, env) {
+  const expected = env.API_KEY;
+  if (!expected) return json({ error: "خدمة غير مهيأة." }, 503);
+  const header =
+    request.headers.get("x-api-key") ||
+    request.headers.get("authorization") ||
+    "";
+  const provided = header.replace(/^Bearer\s+/i, "").trim();
+  if (provided && timingSafeEqual(provided, expected)) return null;
+  const origin = (request.headers.get("origin") || "").toLowerCase();
+  const referer = (request.headers.get("referer") || "").toLowerCase();
+  const allowed = [
+    "https://tafsirhulm.com",
+    "http://tafsirhulm.com",
+    "https://www.tafsirhulm.com",
+  ];
+  const trusted =
+    allowed.some((a) => origin === a || origin.startsWith(a + "/")) ||
+    allowed.some((a) => referer.startsWith(a + "/") || referer === a);
+  if (!provided && trusted) return null;
+  return json({ error: "مفتاح API غير صالح أو مفقود." }, 401);
+}
+
 export async function onRequestPost({ request, env }) {
   try {
+    const authErr = requireApiKey(request, env);
+    if (authErr) return authErr;
+
     if (!env.AI) {
       return json(
         { error: "خدمة التفسير غير متاحة حالياً. حاول لاحقاً." },
