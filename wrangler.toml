@@ -5,3 +5,7 @@ compatibility_date = "2026-08-18"
 
 [ai]
 binding = "AI"
+
+[[kv_namespaces]]
+binding = "SHARES"
+id = "e7024d105d0f491db4d3367620b07ae3"

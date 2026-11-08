@@ -7,3 +7,6 @@ backups/
 all_site_data*.json
 *.log
 .wrangler/
+# local
+*.aab
+.DS_Store

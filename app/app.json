@@ -1,0 +1,34 @@
+{
+  "name": "تفسير الاحلام - مفسر الجد حلمي",
+  "slug": "hlamt",
+  "version": "2.1.0",
+  "orientation": "portrait",
+  "icon": "./assets/icon.png",
+  "userInterfaceStyle": "dark",
+  "newArchEnabled": true,
+  "splash": {
+    "image": "./assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#101820"
+  },
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.tafsirhulm"
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#101820"
+    },
+    "edgeToEdgeEnabled": true,
+    "package": "com.tafsirhulm",
+    "versionCode": 17
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "extra": {
+    "apiBase": "https://tafsirhulm.com/api/mobile",
+    "shareBase": "https://tafsirhulm.com"
+  }
+}

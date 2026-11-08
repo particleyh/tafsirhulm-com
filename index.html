@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/mainTheme/apple-touch-icon.png" />
   <link rel="manifest" href="/mainTheme/site.webmanifest" />
   <meta name="theme-color" content="#FFD700" />
-  <meta name="description" content="تفسير حلم سريع ومجاني بالذكاء الاصطناعي من الجد حلمي. احصل على تفسير فوري لأحلامك خلال ثواني." />
+  <meta name="description" content="تفسير حلم سريع ومجاني بالذكاء الاصطناعي من الجد حلمي. اكتب حلمك، أجب عن أسئلة قصيرة، واحصل على تفسير فوري." />
   <meta property="og:title" content="تفسير حلم سريع ومجاني | مفسر الأحلام بالذكاء الاصطناعي" />
   <meta property="og:description" content="تفسير فوري ومجاني لأحلامك من الجد حلمي." />
   <meta property="og:image" content="/mainTheme/images/og-image.png" />
@@ -20,27 +20,31 @@
   <meta name="twitter:title" content="تفسير حلم سريع ومجاني | مفسر الأحلام بالذكاء الاصطناعي" />
   <meta name="twitter:description" content="تفسير فوري ومجاني لأحلامك من الجد حلمي." />
   <meta name="twitter:image" content="/mainTheme/images/twitter-image.png" />
+  <link rel="canonical" href="https://tafsirhulm.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <title>تفسير حلم سريع ومجاني | مفسر الأحلام بالذكاء الاصطناعي</title>
   <style>
     :root {
-      --bg: #0a0e1a;
-      --bg-soft: #0f1524;
-      --surface: #141b2d;
-      --surface-2: #1a2338;
-      --line: rgba(255, 215, 0, 0.14);
-      --line-soft: rgba(255, 255, 255, 0.08);
+      --bg-1: #101820;
+      --bg-2: #132330;
+      --bg-3: #0c1218;
+      --card: #16212c;
+      --card-2: #1a2836;
+      --line: rgba(255, 255, 255, 0.08);
       --gold: #ffd700;
-      --gold-deep: #e6b800;
-      --gold-soft: rgba(255, 215, 0, 0.12);
-      --text: #eef1f8;
-      --muted: #9aa3b8;
+      --gold-2: #f1cc69;
+      --gold-3: #f5d76e;
+      --gold-deep: #e0b84d;
+      --text: #ffffff;
+      --muted: #8091a5;
+      --muted-2: #aab7c4;
+      --muted-3: #9fb0c0;
       --danger: #ff7b7b;
       --ok: #5eead4;
-      --radius: 18px;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --radius: 20px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
       --font: "Tajawal", system-ui, sans-serif;
       --font-display: "Amiri", "Tajawal", serif;
     }
@@ -49,857 +53,928 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
-      background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.75;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
+      background-attachment: fixed;
     }
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
-    button, textarea { font-family: inherit; }
+    button, textarea, input { font-family: inherit; }
 
-    .container { width: min(1120px, calc(100% - 32px)); margin-inline: auto; }
+    .container { width: min(720px, calc(100% - 32px)); margin-inline: auto; }
 
     /* ── Nav ── */
     .nav {
       position: sticky; top: 0; z-index: 100;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(10, 14, 26, 0.78);
-      border-bottom: 1px solid var(--line-soft);
+      background: rgba(16, 24, 32, 0.82);
+      border-bottom: 1px solid var(--line);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
-      height: 68px; gap: 16px;
+      height: 64px; gap: 12px;
     }
     .brand {
       display: flex; align-items: center; gap: 10px;
-      font-weight: 800; font-size: 1.05rem; color: var(--gold);
+      font-weight: 800; font-size: 1.02rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-3));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    .brand img { width: 40px; height: 40px; object-fit: contain; }
-    .nav-links {
-      display: flex; align-items: center; gap: 6px;
-      list-style: none;
-    }
+    .brand img { width: 36px; height: 36px; object-fit: contain; }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
     .nav-links a {
-      padding: 8px 14px; border-radius: 999px;
-      color: var(--muted); font-weight: 500; font-size: 0.95rem;
-      transition: 0.2s;
+      color: var(--muted-2); font-size: 0.9rem; font-weight: 500;
+      padding: 7px 12px; border-radius: 999px; transition: 0.2s;
     }
-    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
-    .nav-cta {
-      background: var(--gold) !important; color: #10141f !important;
-      font-weight: 700 !important;
-    }
-    .nav-cta:hover { background: var(--gold-deep) !important; }
-    .nav-toggle {
-      display: none; background: none; border: 1px solid var(--line-soft);
-      border-radius: 12px; width: 44px; height: 44px; cursor: pointer;
-      color: var(--text); font-size: 1.2rem;
+    .nav-links a:hover { color: var(--gold-3); background: rgba(255, 215, 0, 0.08); }
+
+    /* ── Wizard shell ── */
+    .wizard { padding: 36px 0 56px; }
+    .step { display: none; animation: fadeUp 0.4s ease; }
+    .step.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Hero ── */
-    .hero {
-      position: relative; overflow: hidden;
-      padding: 72px 0 56px;
-      background:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 215, 0, 0.14), transparent 60%),
-        radial-gradient(ellipse 40% 40% at 90% 20%, rgba(99, 102, 241, 0.12), transparent 50%),
-        var(--bg);
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--gold-soft); border: 1px solid var(--line);
-      color: var(--gold); font-size: 0.85rem; font-weight: 700;
-      padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
-    }
-    .hero-badge::before {
-      content: ""; width: 7px; height: 7px; border-radius: 50%;
-      background: var(--gold); box-shadow: 0 0 8px var(--gold);
+    .hero { text-align: center; margin-bottom: 28px; }
+    .hero-logo {
+      width: 92px; height: 92px; margin: 0 auto 14px;
+      filter: drop-shadow(0 10px 24px rgba(255, 215, 0, 0.2));
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.35; font-weight: 700;
-      background: linear-gradient(135deg, #fff 20%, var(--gold) 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 14px;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      line-height: 1.35;
+      background: linear-gradient(135deg, #ffd700, #f5d76e 55%, #e0b84d);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 10px;
     }
-    .hero-sub {
-      color: var(--muted); font-size: clamp(1rem, 2.5vw, 1.15rem);
-      max-width: 560px; margin-bottom: 36px;
-    }
-    .hero-center { text-align: center; }
-    .hero-center .hero-sub { margin-inline: auto; }
+    .hero p { color: var(--muted-3); font-size: 1.02rem; max-width: 34em; margin-inline: auto; }
 
-    /* ── Dream card ── */
-    .dream-card {
-      background: linear-gradient(180deg, var(--surface) 0%, var(--bg-soft) 100%);
+    .card {
+      background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: clamp(20px, 4vw, 36px);
+      border-radius: var(--radius);
+      padding: 26px;
       box-shadow: var(--shadow);
-      max-width: 720px; margin-inline: auto;
-      text-align: right;
     }
-    .dream-card label {
-      display: block; font-weight: 700; font-size: 1rem;
-      margin-bottom: 12px; color: var(--text);
+
+    /* ── Progress ── */
+    .progress-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; font-size: 0.92rem; color: var(--muted-3);
     }
-    .dream-card label span { color: var(--muted); font-weight: 400; font-size: 0.88rem; }
-    #dream-input {
+    .progress-head strong { color: var(--gold-3); font-weight: 700; }
+    .progress-track {
+      height: 8px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden; margin-bottom: 22px;
+    }
+    .progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--gold-deep), var(--gold), var(--gold-3));
+      border-radius: 999px;
+      transition: width 0.45s ease;
+    }
+
+    /* ── Form ── */
+    label.field-label {
+      display: block; font-weight: 700; font-size: 0.95rem;
+      color: var(--muted-2); margin-bottom: 8px;
+    }
+    textarea.dream-input {
       width: 100%; min-height: 160px; resize: vertical;
-      background: rgba(0, 0, 0, 0.28);
-      border: 1px solid var(--line-soft);
-      border-radius: 14px; padding: 16px 18px;
-      color: var(--text); font-size: 1.08rem; line-height: 1.9;
-      font-family: var(--font-display);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--line);
+      border-radius: 16px; color: var(--text);
+      padding: 16px 18px; font-size: 1.05rem; line-height: 1.8;
       outline: none; transition: border-color 0.2s, box-shadow 0.2s;
     }
-    #dream-input:focus {
+    textarea.dream-input:focus, textarea.answer-input:focus {
       border-color: rgba(255, 215, 0, 0.45);
       box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
     }
-    #dream-input::placeholder { color: #6b7390; }
-    .dream-meta {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-top: 8px; font-size: 0.82rem; color: var(--muted);
-    }
-    .dream-actions {
-      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px;
-      align-items: center;
-    }
-    #interpret-btn {
-      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
-      color: #10141f; border: none; border-radius: 999px;
-      padding: 15px 36px; font-size: 1.1rem; font-weight: 800;
-      cursor: pointer; transition: 0.2s; flex: 1; min-width: 200px;
-      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.25);
-    }
-    #interpret-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(255, 215, 0, 0.35);
-    }
-    #interpret-btn:disabled {
-      opacity: 0.55; cursor: not-allowed; transform: none;
-      box-shadow: none;
-    }
-    .cooldown-chip {
-      font-size: 0.9rem; font-weight: 700; color: var(--gold);
-      background: var(--gold-soft); border: 1px solid var(--line);
-      padding: 10px 16px; border-radius: 999px; display: none;
-    }
-    .cooldown-chip.show { display: inline-flex; align-items: center; gap: 6px; }
+    textarea.dream-input::placeholder, textarea.answer-input::placeholder { color: var(--muted); }
 
-    /* ── Status ── */
-    #interpret-status {
-      margin-top: 16px; font-size: 0.98rem; font-weight: 500;
-      display: none; text-align: center;
+    .gender-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      margin-top: 18px;
     }
-    #interpret-status.show { display: block; }
-    #interpret-status.loading { color: var(--gold); }
-    #interpret-status.error { color: var(--danger); }
-    .spinner {
-      display: inline-block; width: 18px; height: 18px;
-      border: 2px solid rgba(255, 215, 0, 0.25);
-      border-top-color: var(--gold); border-radius: 50%;
-      animation: spin 0.7s linear infinite; vertical-align: -4px;
-      margin-inline-end: 8px;
+    .gender-btn {
+      appearance: none; cursor: pointer;
+      border: 1.5px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted-2); border-radius: 16px;
+      padding: 16px 12px; font-size: 1rem; font-weight: 700;
+      transition: 0.2s; display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .gender-btn .g-icon { font-size: 1.4rem; line-height: 1; }
+    .gender-btn:hover { border-color: rgba(255, 215, 0, 0.3); color: var(--text); }
+    .gender-btn.selected {
+      border-color: var(--gold);
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--gold-3);
+      box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.08);
+    }
+
+    .btn {
+      appearance: none; cursor: pointer; border: none;
+      border-radius: 999px; font-weight: 800; font-size: 1.05rem;
+      padding: 16px 28px; transition: 0.2s; display: inline-flex;
+      align-items: center; justify-content: center; gap: 8px;
+      width: 100%; text-align: center;
+    }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-gold {
+      background: linear-gradient(135deg, #ffd700, #f1cc69 50%, #e0b84d);
+      color: #1a1405;
+      box-shadow: 0 12px 28px rgba(255, 215, 0, 0.22);
+    }
+    .btn-gold:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(255, 215, 0, 0.3);
+    }
+    .btn-ghost {
+      background: transparent; color: var(--muted-2);
+      border: 1.5px solid var(--line); font-weight: 700;
+    }
+    .btn-ghost:hover { color: var(--gold-3); border-color: rgba(255, 215, 0, 0.35); }
+    .mt-18 { margin-top: 18px; }
+    .mt-12 { margin-top: 12px; }
+    .mt-10 { margin-top: 10px; }
+
+    .hint {
+      text-align: center; color: var(--muted); font-size: 0.88rem;
+      margin-top: 14px;
+    }
+    .error-box {
+      display: none; margin-top: 14px; padding: 12px 16px;
+      border-radius: 12px; background: rgba(255, 123, 123, 0.1);
+      border: 1px solid rgba(255, 123, 123, 0.3);
+      color: var(--danger); font-size: 0.92rem; text-align: center;
+    }
+    .error-box.show { display: block; }
+
+    /* ── Loading ── */
+    .loader-wrap { text-align: center; padding: 48px 10px; }
+    .moon {
+      width: 86px; height: 86px; margin: 0 auto 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff7c2, #ffd700 45%, #c9a227 100%);
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.35), inset -12px -8px 0 rgba(0, 0, 0, 0.12);
+      animation: floaty 2.2s ease-in-out infinite;
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .loader-wrap h2 {
+      font-size: 1.25rem; color: var(--gold-3); margin-bottom: 8px;
+    }
+    .loader-wrap p { color: var(--muted-3); }
+    .dots::after {
+      content: ""; animation: dots 1.4s steps(4, end) infinite;
+    }
+    @keyframes dots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75% { content: "..."; }
+    }
+
+    /* ── Questions ── */
+    .q-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px; padding: 22px; margin-bottom: 18px;
+    }
+    .q-card .q-num {
+      display: inline-block; font-size: 0.78rem; font-weight: 800;
+      color: #0c1218; background: linear-gradient(135deg, #ffd700, #f5d76e);
+      padding: 3px 12px; border-radius: 999px; margin-bottom: 12px;
+    }
+    .q-card .q-text {
+      font-size: 1.15rem; font-weight: 700; line-height: 1.7;
+      color: var(--text);
+    }
+    textarea.answer-input {
+      width: 100%; min-height: 110px; resize: vertical;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--line);
+      border-radius: 16px; color: var(--text);
+      padding: 14px 16px; font-size: 1rem; line-height: 1.7;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .q-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
     /* ── Result ── */
-    #interpret-result {
-      display: none; max-width: 720px; margin: 28px auto 0;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 24px; padding: clamp(22px, 4vw, 36px);
-      box-shadow: var(--shadow); text-align: right;
-      animation: rise 0.4s ease;
+    .result-head { text-align: center; margin-bottom: 22px; }
+    .result-head .badge {
+      display: inline-block; font-size: 0.8rem; font-weight: 800;
+      color: #0c1218; background: linear-gradient(135deg, #ffd700, #f5d76e);
+      padding: 4px 16px; border-radius: 999px; margin-bottom: 12px;
     }
-    #interpret-result.show { display: block; }
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .result-kicker {
-      display: inline-block; font-size: 0.78rem; font-weight: 700;
-      color: var(--gold); background: var(--gold-soft);
-      border: 1px solid var(--line); padding: 4px 12px;
-      border-radius: 999px; margin-bottom: 14px;
-    }
-    #interpret-result h2 {
-      font-family: var(--font-display); color: var(--gold);
-      font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 16px;
-      line-height: 1.4;
-    }
-    #interpret-result .analysis {
-      color: var(--text); font-size: 1.05rem; line-height: 2;
-      white-space: pre-wrap; margin-bottom: 22px;
+    .result-head h2 {
       font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      background: linear-gradient(135deg, #ffd700, #f5d76e);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    .symbols-list { list-style: none; display: grid; gap: 10px; margin-bottom: 22px; }
-    .symbols-list li {
+    .result-block {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px; padding: 20px; margin-bottom: 14px;
+    }
+    .result-block h3 {
+      font-size: 0.92rem; color: var(--gold-2); font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .result-block .body {
+      white-space: pre-wrap; color: #e8eef5;
+      font-size: 1.04rem; line-height: 1.95;
+    }
+    .result-block .body.clamp {
+      max-height: 220px; overflow: hidden;
+      -webkit-mask-image: linear-gradient(#000 60%, transparent);
+      mask-image: linear-gradient(#000 60%, transparent);
+    }
+    .expand-btn {
+      display: block; width: 100%; margin-top: 10px;
+      background: none; border: none; color: var(--gold-3);
+      font-weight: 700; cursor: pointer; font-size: 0.95rem;
+    }
+
+    .share-box {
+      display: none; margin-top: 14px; padding: 16px;
       background: rgba(255, 215, 0, 0.06);
-      border: 1px solid rgba(255, 215, 0, 0.18);
-      border-radius: 12px; padding: 12px 16px;
-      display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline;
+      border: 1px dashed rgba(255, 215, 0, 0.4);
+      border-radius: 14px;
     }
-    .symbols-list .sym {
-      color: var(--gold); font-weight: 800; font-size: 0.98rem;
+    .share-box.show { display: block; }
+    .share-box p { color: var(--muted-3); font-size: 0.9rem; margin-bottom: 10px; }
+    .share-url-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .share-url-row input {
+      flex: 1; min-width: 180px;
+      background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line);
+      border-radius: 10px; color: var(--gold-3); padding: 10px 12px;
+      font-size: 0.88rem; direction: ltr; text-align: left;
     }
-    .symbols-list .mean { color: var(--text); font-size: 0.98rem; flex: 1; min-width: 200px; }
-    .conclusion {
-      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.04));
-      border-inline-start: 3px solid var(--gold);
-      border-radius: 0 12px 12px 0;
-      padding: 16px 18px; color: #f5e6a3;
-      font-weight: 500; line-height: 1.9;
-    }
-    .result-note {
-      margin-top: 16px; font-size: 0.82rem; color: var(--muted);
-      text-align: center;
+    .share-url-row .mini-btn {
+      border: none; border-radius: 10px; cursor: pointer;
+      background: linear-gradient(135deg, #ffd700, #e0b84d);
+      color: #1a1405; font-weight: 800; padding: 10px 16px; font-size: 0.9rem;
     }
 
-    /* ── Sections ── */
-    section.block { padding: 64px 0; }
-    .section-head {
-      display: flex; flex-wrap: wrap; align-items: end;
-      justify-content: space-between; gap: 16px; margin-bottom: 32px;
+    .result-actions { display: grid; gap: 10px; margin-top: 6px; }
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #1f2d3d; color: #fff; border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 0.92rem;
+      opacity: 0; pointer-events: none; transition: 0.3s; z-index: 200;
+      box-shadow: var(--shadow);
     }
-    .section-head h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3.5vw, 2.1rem); color: var(--text);
-    }
-    .section-head h2 em {
-      font-style: normal; color: var(--gold);
-    }
-    .section-head p { color: var(--muted); font-size: 0.98rem; margin-top: 6px; }
-    .link-more {
-      color: var(--gold); font-weight: 700; font-size: 0.95rem;
-      border-bottom: 1px solid transparent; transition: 0.2s;
-      white-space: nowrap;
-    }
-    .link-more:hover { border-color: var(--gold); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ── Symbols grid ── */
-    .symbols-section { background: var(--bg-soft); border-block: 1px solid var(--line-soft); }
+    /* ── Below-fold ── */
+    .below { padding: 8px 0 64px; }
+    .below h2 {
+      text-align: center; font-size: 1.35rem; margin-bottom: 18px;
+      background: linear-gradient(135deg, #ffd700, #f5d76e);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .symbol-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 14px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
     }
-    .symbol-card {
-      background: var(--surface);
-      border: 1px solid var(--line-soft);
-      border-radius: var(--radius);
-      padding: 22px;
-      transition: 0.25s;
-      display: flex; flex-direction: column; gap: 8px;
-      position: relative; overflow: hidden;
+    .symbol-grid a {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 14px 10px; text-align: center;
+      color: var(--muted-2); font-weight: 700; font-size: 0.92rem;
+      transition: 0.2s;
     }
-    .symbol-card::after {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at top right, rgba(255,215,0,0.08), transparent 60%);
-      opacity: 0; transition: 0.25s; pointer-events: none;
+    .symbol-grid a:hover {
+      color: var(--gold-3); border-color: rgba(255, 215, 0, 0.35);
+      transform: translateY(-2px);
     }
-    .symbol-card:hover {
-      border-color: rgba(255, 215, 0, 0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
-    }
-    .symbol-card:hover::after { opacity: 1; }
-    .symbol-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: var(--gold-soft); border: 1px solid var(--line);
-      display: grid; place-items: center; font-size: 1.3rem;
-      margin-bottom: 4px;
-    }
-    .symbol-card h3 {
-      color: var(--gold); font-size: 1.1rem; font-weight: 700;
-    }
-    .symbol-card p {
-      color: var(--muted); font-size: 0.92rem; line-height: 1.75;
-      display: -webkit-box; -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .symbol-card .go {
-      margin-top: auto; padding-top: 10px;
-      color: var(--gold); font-size: 0.88rem; font-weight: 700;
-      opacity: 0.7; transition: 0.2s;
-    }
-    .symbol-card:hover .go { opacity: 1; }
 
-    /* ── Blog grid ── */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 18px;
-    }
-    .blog-card {
-      background: var(--surface);
-      border: 1px solid var(--line-soft);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: 0.25s;
-    }
-    .blog-card:hover {
-      border-color: rgba(255, 215, 0, 0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
-    }
-    .blog-card .thumb {
-      height: 150px; background:
-        linear-gradient(135deg, #1a2338, #141b2d);
-      display: grid; place-items: center;
-      color: rgba(255,215,0,0.35); font-size: 2.2rem;
-      border-bottom: 1px solid var(--line-soft);
-    }
-    .blog-card .body {
-      padding: 18px 20px 22px; display: flex; flex-direction: column;
-      flex: 1; gap: 10px;
-    }
-    .blog-card h3 {
-      font-size: 1.05rem; font-weight: 700; line-height: 1.55;
-      color: var(--text);
-      display: -webkit-box; -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .blog-card h3 a:hover { color: var(--gold); }
-    .blog-card .excerpt {
-      color: var(--muted); font-size: 0.9rem; line-height: 1.7;
-      display: -webkit-box; -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
-      flex: 1;
-    }
-    .blog-card .read {
-      color: var(--gold); font-weight: 700; font-size: 0.9rem;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .blog-card .read::before { content: "←"; transition: 0.2s; }
-    .blog-card:hover .read::before { transform: translateX(-4px); }
-
-    /* ── CTA strip ── */
-    .cta-strip {
-      background:
-        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,215,0,0.12), transparent),
-        var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: clamp(28px, 5vw, 48px);
-      display: flex; flex-wrap: wrap; align-items: center;
-      justify-content: space-between; gap: 24px;
-    }
-    .cta-strip h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.3rem, 3vw, 1.8rem); margin-bottom: 8px;
-    }
-    .cta-strip p { color: var(--muted); max-width: 480px; }
-    .btn-gold {
-      background: var(--gold); color: #10141f;
-      border: none; border-radius: 999px;
-      padding: 15px 32px; font-size: 1.05rem; font-weight: 800;
-      cursor: pointer; transition: 0.2s; white-space: nowrap;
-    }
-    .btn-gold:hover { background: var(--gold-deep); transform: translateY(-2px); }
-
-    /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--line-soft);
-      padding: 40px 0 32px; margin-top: 40px;
-      background: var(--bg-soft);
+      border-top: 1px solid var(--line);
+      padding: 28px 16px 40px; text-align: center; color: var(--muted);
+      font-size: 0.9rem;
     }
-    .footer-inner {
-      display: flex; flex-wrap: wrap; gap: 28px;
-      justify-content: space-between; align-items: start;
-    }
-    .footer-brand { max-width: 320px; }
-    .footer-brand .brand { margin-bottom: 10px; }
-    .footer-brand p { color: var(--muted); font-size: 0.92rem; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 20px 32px; }
-    .footer-col h4 {
-      color: var(--text); font-size: 0.95rem; margin-bottom: 12px;
-      font-weight: 700;
-    }
-    .footer-col a {
-      display: block; color: var(--muted); font-size: 0.9rem;
-      padding: 4px 0; transition: 0.2s;
-    }
-    .footer-col a:hover { color: var(--gold); }
-    .footer-bottom {
-      margin-top: 32px; padding-top: 20px;
-      border-top: 1px solid var(--line-soft);
-      display: flex; flex-wrap: wrap; gap: 12px;
-      justify-content: space-between; color: var(--muted);
-      font-size: 0.85rem;
-    }
-    .footer-bottom a { color: var(--gold); }
+    footer .f-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+    footer .f-links a { color: var(--muted-2); }
+    footer .f-links a:hover { color: var(--gold-3); }
 
-    /* ── Mobile ── */
-    @media (max-width: 768px) {
-      .nav-toggle { display: grid; place-items: center; }
-      .nav-links {
-        position: fixed; inset: 68px 0 auto 0;
-        background: rgba(10, 14, 26, 0.97);
-        backdrop-filter: blur(20px);
-        flex-direction: column; padding: 20px;
-        gap: 8px; border-bottom: 1px solid var(--line-soft);
-        transform: translateY(-120%); transition: 0.3s;
-        display: flex;
-      }
-      .nav-links.open { transform: translateY(0); }
-      .nav-links a {
-        width: 100%; text-align: center; padding: 14px;
-        font-size: 1.05rem; background: rgba(255,255,255,0.04);
-        border-radius: 12px;
-      }
-      .hero { padding: 48px 0 40px; }
-      section.block { padding: 48px 0; }
-      .cta-strip { text-align: center; }
-      .cta-strip .btn-gold { width: 100%; }
-      .footer-inner { flex-direction: column; }
+    @media (max-width: 560px) {
+      .card { padding: 20px 16px; }
+      .gender-row, .q-actions { grid-template-columns: 1fr; }
+      .nav-links a { padding: 6px 9px; font-size: 0.82rem; }
     }
   </style>
 </head>
 <body>
   <nav class="nav">
     <div class="container nav-inner">
-      <a href="/" class="brand">
-        <img src="/mainTheme/images/logo.png" alt="الجد حلمي" width="40" height="40" />
+      <a class="brand" href="/">
+        <img src="/mainTheme/tafsirlogo.png" alt="الجد حلمي" onerror="this.src='/mainTheme/favicon.png'" />
         <span>الجد حلمي</span>
       </a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="القائمة" aria-expanded="false">☰</button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="/" aria-current="page">تفسير حلم</a></li>
-        <li><a href="/dream-symbols/">رموز الأحلام</a></li>
-        <li><a href="/blogs/all/">التفسيرات</a></li>
-        <li><a href="/about">من نحن</a></li>
-        <li><a href="/contact">تواصل معنا</a></li>
-        <li><a href="#dream" class="nav-cta">فسّر حلمك</a></li>
-      </ul>
+      <div class="nav-links">
+        <a href="#app">ابدأ التفسير</a>
+        <a href="/dream-symbols/">رموز الأحلام</a>
+        <a href="/blogs/all/">المدونة</a>
+      </div>
     </div>
   </nav>
 
-  <header class="hero" id="dream">
-    <div class="container hero-center">
-      <div class="hero-badge">تفسير فوري بالذكاء الاصطناعي</div>
-      <h1>احصل على تفسير حلمك<br />خلال ثوانٍ</h1>
-      <p class="hero-sub">
-        اكتب حلمك كما رأيته، وسيقوم الجد حلمي بتحليل رموزه وإعطائك قراءة واضحة ومتوازنة — مجاناً وبدون تسجيل.
-      </p>
+  <main class="wizard container" id="app">
 
-      <div class="dream-card">
-        <label for="dream-input">
-          نص الحلم
-          <span>— اكتب بتفصيل ما تذكره</span>
-        </label>
+    <!-- STEP 1: Dream + gender -->
+    <section class="step active" id="step-home">
+      <div class="hero">
+        <img class="hero-logo" src="/mainTheme/tafsirlogo.png" alt="الجد حلمي" onerror="this.src='/mainTheme/favicon.png'" />
+        <h1>مفسّر الأحلام بالذكاء الاصطناعي</h1>
+        <p>اكتب حلمك، أجب عن أسئلة قصيرة، واحصل على تفسير فوري خلال لحظات.</p>
+      </div>
+
+      <div class="card">
+        <label class="field-label" for="dream">نص الحلم</label>
         <textarea
-          id="dream-input"
-          placeholder="مثال: حلمت أنني أطير فوق جبل أخضر وتحتي نهر ذهبي…"
+          id="dream"
+          class="dream-input"
+          placeholder="اكتب حلمك هنا..."
           maxlength="3000"
-          rows="6"
         ></textarea>
-        <div class="dream-meta">
-          <span id="char-count">0 / 3000</span>
-          <span>الحد الأدنى 10 أحرف</span>
+
+        <div class="gender-row" role="group" aria-label="الجنس">
+          <button type="button" class="gender-btn selected" data-gender="male" id="g-male">
+            <span class="g-icon">♂</span>
+            <span>ذكر</span>
+          </button>
+          <button type="button" class="gender-btn" data-gender="female" id="g-female">
+            <span class="g-icon">♀</span>
+            <span>أنثى</span>
+          </button>
         </div>
-        <div class="dream-actions">
-          <button id="interpret-btn" type="button">فسّر حلمي</button>
-          <span class="cooldown-chip" id="cooldown-chip">انتظر <b id="cooldown-num">30</b> ث</span>
+
+        <div class="error-box" id="home-error"></div>
+
+        <button type="button" class="btn btn-gold mt-18" id="btn-start">ابدأ التفسير</button>
+        <p class="hint">مجاني بالكامل · بدون تسجيل · خصوصية تامة</p>
+      </div>
+    </section>
+
+    <!-- STEP 2: Loading questions -->
+    <section class="step" id="step-loading-q">
+      <div class="card loader-wrap">
+        <div class="moon"></div>
+        <h2>جاري تحضير الأسئلة<span class="dots"></span></h2>
+        <p>نجهز لك أسئلة قصيرة تساعدنا على فهم الحلم بشكل أفضل.</p>
+      </div>
+    </section>
+
+    <!-- STEP 3: Questions -->
+    <section class="step" id="step-questions">
+      <div class="card">
+        <div class="progress-head">
+          <span>التقدم</span>
+          <strong id="q-progress-label">1 / 4</strong>
         </div>
-        <div id="interpret-status" role="status" aria-live="polite"></div>
+        <div class="progress-track">
+          <div class="progress-fill" id="q-progress-fill"></div>
+        </div>
+
+        <div class="q-card">
+          <span class="q-num" id="q-num">السؤال 1</span>
+          <p class="q-text" id="q-text">...</p>
+        </div>
+
+        <textarea
+          id="answer"
+          class="answer-input"
+          placeholder="اكتب إجابتك هنا..."
+          maxlength="1000"
+        ></textarea>
+
+        <div class="error-box" id="q-error"></div>
+
+        <div class="q-actions mt-18">
+          <button type="button" class="btn btn-ghost" id="btn-skip">تخطي السؤال</button>
+          <button type="button" class="btn btn-gold" id="btn-next">التالي</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4: Loading interpretation -->
+    <section class="step" id="step-loading-r">
+      <div class="card loader-wrap">
+        <div class="moon"></div>
+        <h2>جاري تحليل الحلم<span class="dots"></span></h2>
+        <p>سيتم عرض التفسير خلال لحظات…</p>
+      </div>
+    </section>
+
+    <!-- STEP 5: Result -->
+    <section class="step" id="step-result">
+      <div class="result-head">
+        <span class="badge">نتيجة تفسير الحلم</span>
+        <h2>تفسير حلمك</h2>
       </div>
 
-      <div id="interpret-result" aria-live="polite"></div>
-    </div>
-  </header>
+      <div class="result-block">
+        <h3>الحلم</h3>
+        <div class="body clamp" id="result-dream"></div>
+        <button type="button" class="expand-btn" data-expand="result-dream" hidden>عرض المزيد</button>
+      </div>
 
-  <section class="block symbols-section" id="symbols">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>رموز <em>الأحلام</em> الشائعة</h2>
-          <p>أكثر الرموز التي تكرر في أحلام الناس — مع دلالاتها</p>
-        </div>
-        <a class="link-more" href="/dream-symbols/">عرض جميع الرموز ←</a>
+      <div class="result-block">
+        <h3>التفسير</h3>
+        <div class="body clamp" id="result-interp"></div>
+        <button type="button" class="expand-btn" data-expand="result-interp" hidden>عرض المزيد</button>
       </div>
-      <div class="symbol-grid">
-        <a class="symbol-card" href="/dream-symbols/animals/snake/">
-          <div class="symbol-icon">🐍</div>
-          <h3>تفسير الثعبان</h3>
-          <p>العداوة الخفية، الخوف، أو القوة الكامنة — يتغير المعنى حسب موقف الثعبان منك في الحلم.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/body/teeth/">
-          <div class="symbol-icon">🦷</div>
-          <h3>تفسير سقوط الأسنان</h3>
-          <p>من أكثر الرموز إثارة للقلق، ويرتبط غالباً بالتوتر والقلق من المظهر أو التغيّر.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/wealth/money/">
-          <div class="symbol-icon">💰</div>
-          <h3>تفسير المال</h3>
-          <p>الرزق والقيمة والقدرة، وقد يعكس أيضاً قلق الالتزامات أو المقارنة مع الآخرين.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/relationships/marriage/">
-          <div class="symbol-icon">💍</div>
-          <h3>تفسير الزواج</h3>
-          <p>شراكة أو التزام أو انتقال في الحال — ويتغير بحسب هوية من رأيته ومن كان العريس.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/spirituality/death/">
-          <div class="symbol-icon">🌙</div>
-          <h3>تفسير الموت</h3>
-          <p>لا يعني بالضرورة موتاً حقيقياً — كثيراً ما يرمز للتحول أو نهاية مرحلة أو خوف من فقدان.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/places/house/">
-          <div class="symbol-icon">🏠</div>
-          <h3>تفسير البيت</h3>
-          <p>يمثل العالم الداخلي للرائي: الأمان والخصوصية والاستقرار — وما يحدث فيه يخصّه.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/relationships/pregnancy/">
-          <div class="symbol-icon">🤰</div>
-          <h3>تفسير الحمل</h3>
-          <p>نمو شيء جديد: مشروع أو مسؤولية أو أمل يتشكل ببطء — وليست بالضرورة حملًا حقيقياً.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/places/rain/">
-          <div class="symbol-icon">🌧️</div>
-          <h3>تفسير المطر</h3>
-          <p>الرحمة والتجدد والانفراج — أو الضغط والفوضى إذا جاء عاصفاً مؤذياً.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/movement/car/">
-          <div class="symbol-icon">🚗</div>
-          <h3>تفسير السيارة</h3>
-          <p>مسار الحياة ومقدار السيطرة على الاتجاه والسرعة والقرار.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/wealth/gold/">
-          <div class="symbol-icon">✨</div>
-          <h3>تفسير الذهب</h3>
-          <p>القيمة والزينة والمكاسب — أو عبء وحسد ومسؤولية ثقيلة حسب شكله.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/movement/falling/">
-          <div class="symbol-icon">⬇️</div>
-          <h3>تفسير السقوط</h3>
-          <p>قلق وفقدان توازن وخوف من التعثر — من أكثر الأحلام شيوعاً عموماً.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-        <a class="symbol-card" href="/dream-symbols/spirituality/prayer/">
-          <div class="symbol-icon">🤲</div>
-          <h3>تفسير الصلاة</h3>
-          <p>طمأنينة وطلب عون واستقامة — ورجوع إلى ما يثبت القلب.</p>
-          <span class="go">اقرأ التفسير ←</span>
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <section class="block" id="latest">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>أحدث <em>التفسيرات</em></h2>
-          <p>أحلام حقيقية كتبها المتفاعلون — ومعها تفسيرها الكامل</p>
-        </div>
-        <a class="link-more" href="/blogs/all/">تصفح جميع التفسيرات ←</a>
-      </div>
-      <div class="blog-grid">
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-الخروج-من-الفصل-ومساعدة-المعلم-وأكل-الموز-الناضج" class="thumb" aria-hidden="true">🎓</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-الخروج-من-الفصل-ومساعدة-المعلم-وأكل-الموز-الناضج">تفسير حلم الخروج من الفصل ومساعدة المعلم وأكل الموز الناضج</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: حلمت إني في حصه مدرسيه والمعلم رجل…</p>
-            <a class="read" href="/blogs/تفسير-حلم-الخروج-من-الفصل-ومساعدة-المعلم-وأكل-الموز-الناضج">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-تقبيل-شخصية-مشهورة-والقلق-على-صحة-الابنة" class="thumb" aria-hidden="true">🌟</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-تقبيل-شخصية-مشهورة-والقلق-على-صحة-الابنة">تفسير حلم تقبيل شخصية مشهورة والقلق على صحة الابنة</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: رايت كأننا في مكان عام وكان كل واحد معاه زوجته…</p>
-            <a class="read" href="/blogs/تفسير-حلم-تقبيل-شخصية-مشهورة-والقلق-على-صحة-الابنة">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-التجمع-العائلي-وصنع-الشاي-داخل-الخيمة" class="thumb" aria-hidden="true">⛺</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-التجمع-العائلي-وصنع-الشاي-داخل-الخيمة">تفسير حلم التجمع العائلي وصنع الشاي داخل الخيمة</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: أمي حلمت إنها في خيمة تجمع عائلي…</p>
-            <a class="read" href="/blogs/تفسير-حلم-التجمع-العائلي-وصنع-الشاي-داخل-الخيمة">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-استخراج-الذهب-والوقوع-في-الأسر-والتعامل-مع-امرأة-حزينة" class="thumb" aria-hidden="true">🥇</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-استخراج-الذهب-والوقوع-في-الأسر-والتعامل-مع-امرأة-حزينة">تفسير حلم استخراج الذهب والوقوع في الأسر</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: رأيت أن الخراب حل في بلادنا بسبب فرعون…</p>
-            <a class="read" href="/blogs/تفسير-حلم-استخراج-الذهب-والوقوع-في-الأسر-والتعامل-مع-امرأة-حزينة">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-خلع-رباط-الحذاء-والحديث-مع-شاب-في-المنام" class="thumb" aria-hidden="true">👟</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-خلع-رباط-الحذاء-والحديث-مع-شاب-في-المنام">تفسير حلم خلع رباط الحذاء والحديث مع شاب</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: أنا مطلقة وحلمت أنني خرجت من الصف المدرسي…</p>
-            <a class="read" href="/blogs/تفسير-حلم-خلع-رباط-الحذاء-والحديث-مع-شاب-في-المنام">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-شرب-الماء-غير-الصافي-وتنظيف-الأسنان" class="thumb" aria-hidden="true">💧</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-شرب-الماء-غير-الصافي-وتنظيف-الأسنان">تفسير حلم شرب الماء غير الصافي وتنظيف الأسنان</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: حلمت إني كنت نايمة وصحوني أنزل مجتمعين…</p>
-            <a class="read" href="/blogs/تفسير-حلم-شرب-الماء-غير-الصافي-وتنظيف-الأسنان">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-ركوب-السيارة-مع-شخص-تحبينه-ورؤية-أساور-الذهب" class="thumb" aria-hidden="true">🚘</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-ركوب-السيارة-مع-شخص-تحبينه-ورؤية-أساور-الذهب">تفسير حلم ركوب السيارة مع شخص تحبه ورؤية أساور الذهب</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: عزباء، رأيت بمنامي راكبة سيارة…</p>
-            <a class="read" href="/blogs/تفسير-حلم-ركوب-السيارة-مع-شخص-تحبينه-ورؤية-أساور-الذهب">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-السكن-الجماعي-ورؤية-أشخاص-بملامح-غريبة" class="thumb" aria-hidden="true">🏘️</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-السكن-الجماعي-ورؤية-أشخاص-بملامح-غريبة">تفسير حلم السكن الجماعي ورؤية أشخاص بملامح غريبة</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: حلمت إني في سكن جماعي كل شخص عنده غرفته…</p>
-            <a class="read" href="/blogs/تفسير-حلم-السكن-الجماعي-ورؤية-أشخاص-بملامح-غريبة">اقرأ التفسير</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <a href="/blogs/تفسير-حلم-خلع-رباط-الحذاء-والحديث-مع-شاب-في-المدرسة" class="thumb" aria-hidden="true">🏫</a>
-          <div class="body">
-            <h3><a href="/blogs/تفسير-حلم-خلع-رباط-الحذاء-والحديث-مع-شاب-في-المدرسة">تفسير حلم خلع رباط الحذاء والحديث مع شاب في المدرسة</a></h3>
-            <p class="excerpt">نص الحلم كما كتبه الحالم: حلمت أنني خرجت من الصف المدرسي…</p>
-            <a class="read" href="/blogs/تفسير-حلم-خلع-رباط-الحذاء-والحديث-مع-شاب-في-المدرسة">اقرأ التفسير</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+      <div class="error-box" id="result-error"></div>
 
-  <section class="block" style="padding-top: 0;">
-    <div class="container">
-      <div class="cta-strip">
-        <div>
-          <h2>حلمك يستحق تفسيراً واضحاً</h2>
-          <p>اكتب حلمك الآن واحصل على قراءة منظمة خلال ثوانٍ — بدون تسجيل وبدون حد يومي.</p>
+      <div class="result-actions">
+        <button type="button" class="btn btn-gold" id="btn-share">مشاركة الحلم</button>
+
+        <div class="share-box" id="share-box">
+          <p>رابط خاص بك فقط — لا يظهر في أي مكان آخر. من يملك الرابط يرى الحلم.</p>
+          <div class="share-url-row">
+            <input type="text" id="share-url" readonly />
+            <button type="button" class="mini-btn" id="btn-copy-url">نسخ</button>
+          </div>
+          <button type="button" class="btn btn-ghost mt-10" id="btn-native-share" hidden>مشاركة عبر التطبيقات</button>
         </div>
-        <a class="btn-gold" href="#dream">ابدأ التفسير</a>
+
+        <button type="button" class="btn btn-ghost" id="btn-copy-text">نسخ النص</button>
+        <button type="button" class="btn btn-ghost" id="btn-save-local">حفظ في السجل</button>
+        <button type="button" class="btn btn-ghost" id="btn-new-dream">حلم جديد</button>
       </div>
+    </section>
+  </main>
+
+  <section class="below container">
+    <h2>أشهر رموز الأحلام</h2>
+    <div class="symbol-grid" id="symbol-grid">
+      <a href="/dream-symbols/places/sea/">البحر</a>
+      <a href="/dream-symbols/animals/snake/">الثعبان</a>
+      <a href="/dream-symbols/animals/cat/">القطة</a>
+      <a href="/dream-symbols/animals/dog/">الكلب</a>
+      <a href="/dream-symbols/places/fire/">النار</a>
+      <a href="/dream-symbols/places/rain/">المطر</a>
+      <a href="/dream-symbols/wealth/money/">المال</a>
+      <a href="/dream-symbols/body/teeth/">الأسنان</a>
+      <a href="/dream-symbols/relationships/pregnancy/">الحمل</a>
+      <a href="/dream-symbols/spirituality/death/">الموت</a>
+      <a href="/dream-symbols/movement/flying/">الطيران</a>
+      <a href="/dream-symbols/relationships/marriage/">الزواج</a>
     </div>
+    <p class="hint"><a href="/dream-symbols/" style="color:var(--gold-3);font-weight:700">عرض جميع الرموز ←</a></p>
   </section>
 
   <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a href="/" class="brand">
-            <img src="/mainTheme/images/logo.png" alt="الجد حلمي" width="40" height="40" />
-            <span>الجد حلمي</span>
-          </a>
-          <p>منصة عربية لتفسير الأحلام بالذكاء الاصطناعي — قراءات متوازنة تجمع بين كتب التفسير والفهم النفسي المعاصر.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h4>الموقع</h4>
-            <a href="/">تفسير حلم</a>
-            <a href="/dream-symbols/">رموز الأحلام</a>
-            <a href="/blogs/all/">جميع التفسيرات</a>
-          </div>
-          <div class="footer-col">
-            <h4>الشركة</h4>
-            <a href="/about">من نحن</a>
-            <a href="/contact">تواصل معنا</a>
-          </div>
-          <div class="footer-col">
-            <h4>قانوني</h4>
-            <a href="/privacy/">سياسة الخصوصية</a>
-            <a href="/app-privacy-policy/">خصوصية التطبيق</a>
-            <a href="/terms/">الشروط والأحكام</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 الجد حلمي. جميع الحقوق محفوظة.</span>
-        <span>تصميم وبرمجة <a href="https://eram-design.com" target="_blank" rel="noopener sponsored">إرم ديزاين</a></span>
-      </div>
+    <div class="f-links">
+      <a href="/">الرئيسية</a>
+      <a href="/dream-symbols/">رموز الأحلام</a>
+      <a href="/blogs/all/">المدونة</a>
+      <a href="/sitemap.xml">خريطة الموقع</a>
     </div>
+    <div>© <span id="year"></span> الجد حلمي · تفسير أحلام بالذكاء الاصطناعي</div>
   </footer>
 
-  <script src="/chatdardsha-floating-ad.js" defer></script>
+  <div class="toast" id="toast"></div>
+
   <script>
-  (function () {
-    var input = document.getElementById("dream-input");
-    var btn = document.getElementById("interpret-btn");
-    var statusEl = document.getElementById("interpret-status");
-    var resultEl = document.getElementById("interpret-result");
-    var charCount = document.getElementById("char-count");
-    var chip = document.getElementById("cooldown-chip");
-    var chipNum = document.getElementById("cooldown-num");
-    var navToggle = document.getElementById("nav-toggle");
-    var navLinks = document.getElementById("nav-links");
+    (function () {
+      "use strict";
 
-    var cooldownUntil = 0;
-    var timer = null;
-    var busy = false;
+      var API_START = "/api/mobile/start-interpretation";
+      var API_GET = "/api/mobile/get-interpretation";
+      var API_SHARE = "/api/share";
+      var COOLDOWN_KEY = "tafsir_next_ok";
 
-    // mobile nav
-    navToggle.addEventListener("click", function () {
-      var open = navLinks.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-      navToggle.textContent = open ? "✕" : "☰";
-    });
-    navLinks.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") {
-        navLinks.classList.remove("open");
-        navToggle.textContent = "☰";
-        navToggle.setAttribute("aria-expanded", "false");
+      var state = {
+        gender: "male",
+        questions: [],
+        answers: [],
+        qIndex: 0,
+        dream: "",
+        interpretation: "",
+        guestId: "",
+        busy: false
+      };
+
+      var $ = function (id) { return document.getElementById(id); };
+      var steps = {
+        home: $("step-home"),
+        loadingQ: $("step-loading-q"),
+        questions: $("step-questions"),
+        loadingR: $("step-loading-r"),
+        result: $("step-result")
+      };
+
+      $("year").textContent = new Date().getFullYear();
+
+      function show(name) {
+        Object.keys(steps).forEach(function (k) {
+          steps[k].classList.toggle("active", k === name);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    });
 
-    // char count
-    input.addEventListener("input", function () {
-      charCount.textContent = input.value.length + " / 3000";
-    });
+      function showError(el, msg) {
+        if (!el) return;
+        if (!msg) { el.classList.remove("show"); el.textContent = ""; return; }
+        el.textContent = msg;
+        el.classList.add("show");
+      }
 
-    function esc(s) {
-      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
-        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      var toastTimer = null;
+      function toast(msg) {
+        var t = $("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2600);
+      }
+
+      function cooldownLeft() {
+        try {
+          var next = parseInt(localStorage.getItem(COOLDOWN_KEY) || "0", 10);
+          var left = Math.ceil((next - Date.now()) / 1000);
+          return left > 0 ? left : 0;
+        } catch (e) { return 0; }
+      }
+
+      function setCooldown(sec) {
+        try {
+          localStorage.setItem(COOLDOWN_KEY, String(Date.now() + sec * 1000));
+        } catch (e) {}
+      }
+
+      async function apiPost(url, body, timeoutMs) {
+        var ctrl = new AbortController();
+        var timer = setTimeout(function () { ctrl.abort(); }, timeoutMs || 45000);
+        try {
+          var res = await fetch(url, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(body),
+            signal: ctrl.signal
+          });
+          var data = null;
+          try { data = await res.json(); } catch (e) {}
+          if (!res.ok) {
+            var err = new Error((data && (data.error || data.message)) || "حدث خطأ، حاول مرة أخرى.");
+            err.status = res.status;
+            err.data = data;
+            throw err;
+          }
+          return data;
+        } finally {
+          clearTimeout(timer);
+        }
+      }
+
+      /* ── Gender ── */
+      document.querySelectorAll(".gender-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".gender-btn").forEach(function (b) {
+            b.classList.remove("selected");
+          });
+          btn.classList.add("selected");
+          state.gender = btn.getAttribute("data-gender") || "male";
+        });
       });
-    }
 
-    function setStatus(msg, kind) {
-      if (!msg) {
-        statusEl.className = "";
-        statusEl.innerHTML = "";
-        statusEl.classList.remove("show");
-        return;
-      }
-      statusEl.className = "show " + (kind || "");
-      statusEl.innerHTML =
-        kind === "loading"
-          ? '<span class="spinner"></span>' + esc(msg)
-          : esc(msg);
-    }
+      /* ── Step 1 → start ── */
+      $("btn-start").addEventListener("click", async function () {
+        if (state.busy) return;
+        showError($("home-error"), "");
 
-    function startCooldown(seconds) {
-      var end = Date.now() + seconds * 1000;
-      if (end > cooldownUntil) cooldownUntil = end;
-      chip.classList.add("show");
-      btn.disabled = true;
-      if (timer) clearInterval(timer);
-      function tick() {
-        var left = Math.ceil((cooldownUntil - Date.now()) / 1000);
-        if (left <= 0) {
-          clearInterval(timer);
-          timer = null;
-          chip.classList.remove("show");
-          if (!busy) btn.disabled = false;
+        var dream = $("dream").value.trim();
+        if (dream.length < 10) {
+          showError($("home-error"), "يرجى كتابة تفاصيل أكثر عن حلمك");
           return;
         }
-        chipNum.textContent = left;
-      }
-      tick();
-      timer = setInterval(tick, 250);
-    }
 
-    function render(data) {
-      var html = '<span class="result-kicker">تفسير الجد حلمي</span>';
-      html += "<h2>" + esc(data.title || "تفسير حلمك") + "</h2>";
-      if (data.analysis) {
-        html += '<div class="analysis">' + esc(data.analysis) + "</div>";
-      }
-      if (data.symbols && data.symbols.length) {
-        html += '<ul class="symbols-list">';
-        for (var i = 0; i < data.symbols.length; i++) {
-          var s = data.symbols[i];
-          html +=
-            "<li><span class=\"sym\">" +
-            esc(s.symbol) +
-            '</span><span class="mean">' +
-            esc(s.meaning) +
-            "</span></li>";
+        var left = cooldownLeft();
+        if (left > 0) {
+          showError($("home-error"), "انتظر " + left + " ثانية قبل محاولة جديدة");
+          return;
         }
-        html += "</ul>";
-      }
-      if (data.conclusion) {
-        html += '<div class="conclusion">' + esc(data.conclusion) + "</div>";
-      }
-      html +=
-        '<p class="result-note">هذه قراءة إرشادية وليست يقيناً — تفسير الحلم يبقى رمزيّاً ومختلفاً بحسب حالتك وسياق حياتك.</p>';
-      resultEl.innerHTML = html;
-      resultEl.classList.add("show");
-      resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
 
-    btn.addEventListener("click", function () {
-      if (busy || btn.disabled) return;
-      var dream = (input.value || "").trim();
-      resultEl.classList.remove("show");
-      resultEl.innerHTML = "";
+        state.busy = true;
+        $("btn-start").disabled = true;
+        show("loadingQ");
 
-      if (dream.length < 10) {
-        setStatus("اكتب حلمك بشكل أوضح (10 أحرف على الأقل).", "error");
-        input.focus();
-        return;
-      }
+        try {
+          var data = await apiPost(API_START, {
+            dream: dream,
+            gender: state.gender
+          }, 40000);
 
-      busy = true;
-      btn.disabled = true;
-      setStatus("الجد حلمي يقرأ حلمك… قد يستغرق بضع ثوانٍ", "loading");
-
-      fetch("/api/interpret", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ dream: dream }),
-      })
-        .then(function (r) {
-          return r.json().then(function (j) {
-            return { ok: r.ok, status: r.status, body: j };
-          });
-        })
-        .then(function (x) {
-          if (!x.ok) {
-            setStatus((x.body && x.body.error) || "حدث خطأ. حاول مجدداً.", "error");
-            if (x.status === 429 && x.body && x.body.retry_after) {
-              startCooldown(x.body.retry_after);
-            }
-            return;
+          var d = data && data.data ? data.data : data;
+          var questions = (d && d.questions) || [];
+          if (!questions.length) {
+            throw new Error("لا يوجد سؤال متاح، حاول مرة أخرى.");
           }
-          setStatus("");
-          render(x.body);
-          startCooldown(30);
-        })
-        .catch(function () {
-          setStatus("تعذر الاتصال. تحقق من الشبكة وحاول مجدداً.", "error");
-        })
-        .finally(function () {
-          busy = false;
-          // btn re-enabled by cooldown timer if still cooling
-          if (Date.now() >= cooldownUntil) btn.disabled = false;
-        });
-    });
 
-    // Ctrl/Cmd+Enter submits
-    input.addEventListener("keydown", function (e) {
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-        e.preventDefault();
-        btn.click();
+          state.dream = dream;
+          state.questions = questions;
+          state.answers = [];
+          state.qIndex = 0;
+          state.guestId = (d && d.guest_id) || "";
+          state.interpretation = "";
+
+          show("questions");
+          renderQuestion();
+        } catch (err) {
+          show("home");
+          var msg = err && err.message ? err.message : "حدث خطأ أثناء تجهيز الأسئلة.";
+          if (err && err.status === 429 && err.data && err.data.retry_after) {
+            setCooldown(err.data.retry_after);
+            msg = err.data.error || ("انتظر " + err.data.retry_after + " ثانية");
+          } else if (err && err.name === "AbortError") {
+            msg = "انتهت المهلة، تحقق من اتصالك وحاول مجدداً.";
+          }
+          showError($("home-error"), msg);
+        } finally {
+          state.busy = false;
+          $("btn-start").disabled = false;
+        }
+      });
+
+      /* ── Step 3: questions ── */
+      function renderQuestion() {
+        var i = state.qIndex;
+        var total = state.questions.length;
+        $("q-num").textContent = "السؤال " + (i + 1);
+        $("q-text").textContent = state.questions[i] || "—";
+        $("q-progress-label").textContent = (i + 1) + " / " + total;
+        $("q-progress-fill").style.width = Math.round(((i + 1) / total) * 100) + "%";
+        $("answer").value = state.answers[i] || "";
+        $("btn-next").textContent = i === total - 1 ? "عرض التفسير" : "التالي";
+        showError($("q-error"), "");
       }
-    });
-  })();
+
+      function collectAnswer() {
+        state.answers[state.qIndex] = $("answer").value.trim();
+      }
+
+      async function goNext() {
+        if (state.busy) return;
+        collectAnswer();
+        if (state.qIndex < state.questions.length - 1) {
+          state.qIndex += 1;
+          renderQuestion();
+          return;
+        }
+        await finishInterpretation();
+      }
+
+      $("btn-next").addEventListener("click", goNext);
+
+      $("btn-skip").addEventListener("click", function () {
+        if (state.busy) return;
+        collectAnswer();
+        if (state.qIndex < state.questions.length - 1) {
+          state.qIndex += 1;
+          renderQuestion();
+        } else {
+          finishInterpretation();
+        }
+      });
+
+      $("answer").addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          goNext();
+        }
+      });
+
+      async function finishInterpretation() {
+        if (state.busy) return;
+        state.busy = true;
+        $("btn-next").disabled = true;
+        $("btn-skip").disabled = true;
+        show("loadingR");
+
+        var left = cooldownLeft();
+        if (left > 0) {
+          await new Promise(function (r) { setTimeout(r, left * 1000 + 300); });
+        }
+
+        try {
+          var payload = {
+            dream: state.dream,
+            gender: state.gender,
+            answers: JSON.stringify(state.answers),
+            guest_id: state.guestId
+          };
+          var data = await apiPost(API_GET, payload, 60000);
+          var d = data && data.data ? data.data : data;
+          var interp =
+            (d && (d.interpretation || d.result)) ||
+            (data && (data.interpretation || data.result)) ||
+            "";
+          if (!interp || String(interp).length < 20) {
+            throw new Error("لم يتم استلام تفسير صالح من الخادم.");
+          }
+          state.interpretation = String(interp);
+          setCooldown(30);
+          renderResult();
+          show("result");
+        } catch (err) {
+          show("questions");
+          var msg = err && err.message ? err.message : "حدث خطأ أثناء الحصول على التفسير.";
+          if (err && err.status === 429 && err.data && err.data.retry_after) {
+            setCooldown(err.data.retry_after);
+            msg = err.data.error || msg;
+          } else if (err && err.name === "AbortError") {
+            msg = "انتهت المهلة، تحقق من اتصالك وحاول مجدداً.";
+          }
+          showError($("q-error"), msg);
+        } finally {
+          state.busy = false;
+          $("btn-next").disabled = false;
+          $("btn-skip").disabled = false;
+        }
+      }
+
+      /* ── Step 5: result ── */
+      function prettyInterpretation(raw) {
+        try {
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === "object") {
+            var title = parsed.title || parsed.heading || "";
+            var body =
+              parsed.analysis ||
+              parsed.body ||
+              parsed.text ||
+              parsed.interpretation ||
+              "";
+            var symbols = Array.isArray(parsed.symbols) ? parsed.symbols : null;
+            var out = "";
+            if (title) out += title + "\n\n";
+            if (body) out += body;
+            if (symbols && symbols.length) {
+              out += "\n\nرموز الحلم: " + symbols.join("، ");
+            }
+            if (!body && !title) return raw;
+            return out;
+          }
+        } catch (e) {}
+        return raw;
+      }
+
+      function renderResult() {
+        $("result-dream").textContent = state.dream;
+        $("result-interp").textContent = prettyInterpretation(state.interpretation);
+        $("share-box").classList.remove("show");
+        showError($("result-error"), "");
+
+        ["result-dream", "result-interp"].forEach(function (id) {
+          var el = $(id);
+          var btn = document.querySelector('[data-expand="' + id + '"]');
+          el.classList.add("clamp");
+          var needs = el.scrollHeight > el.clientHeight + 8;
+          if (btn) btn.hidden = !needs;
+        });
+      }
+
+      document.querySelectorAll(".expand-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var el = $(btn.getAttribute("data-expand"));
+          if (!el) return;
+          var open = !el.classList.contains("clamp");
+          el.classList.toggle("clamp", open);
+          btn.textContent = open ? "عرض المزيد" : "عرض أقل";
+        });
+      });
+
+      $("btn-new-dream").addEventListener("click", function () {
+        state.questions = [];
+        state.answers = [];
+        state.qIndex = 0;
+        state.interpretation = "";
+        $("answer").value = "";
+        $("share-box").classList.remove("show");
+        show("home");
+      });
+
+      $("btn-copy-text").addEventListener("click", async function () {
+        var text = "الحلم:\n" + state.dream + "\n\nالتفسير:\n" + state.interpretation;
+        try {
+          await navigator.clipboard.writeText(text);
+          toast("تم نسخ النص");
+        } catch (e) {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); toast("تم نسخ النص"); }
+        catch (e) { toast("تعذر النسخ"); }
+        document.body.removeChild(ta);
+      }
+
+      $("btn-save-local").addEventListener("click", function () {
+        try {
+          var list = JSON.parse(localStorage.getItem("dreams_history") || "[]");
+          list.unshift({
+            dream: state.dream,
+            interpretation: state.interpretation,
+            gender: state.gender,
+            ts: Date.now()
+          });
+          localStorage.setItem("dreams_history", JSON.stringify(list.slice(0, 50)));
+          toast("تم حفظ الحلم في سجل الأحلام");
+        } catch (e) {
+          toast("تعذر الحفظ");
+        }
+      });
+
+      /* ── Share (private URL) ── */
+      $("btn-share").addEventListener("click", async function () {
+        if (state.busy) return;
+        state.busy = true;
+        $("btn-share").disabled = true;
+        showError($("result-error"), "");
+
+        try {
+          var data = await apiPost(API_SHARE, {
+            dream: state.dream,
+            gender: state.gender,
+            questions: state.questions,
+            answers: state.answers,
+            interpretation: state.interpretation
+          }, 20000);
+          var d = data && data.data ? data.data : data;
+          var url = d && d.url;
+          if (!url) throw new Error("تعذر إنشاء الرابط");
+          $("share-url").value = url;
+          $("share-box").classList.add("show");
+
+          if (navigator.share) {
+            var ns = $("btn-native-share");
+            ns.hidden = false;
+            ns.onclick = async function () {
+              try {
+                await navigator.share({
+                  title: "تفسير حلمي — الجد حلمي",
+                  text: state.interpretation.slice(0, 180),
+                  url: url
+                });
+              } catch (e) {}
+            };
+          }
+          if (navigator.clipboard) {
+            try { await navigator.clipboard.writeText(url); toast("تم إنشاء الرابط ونسخه"); }
+            catch (e) { toast("تم إنشاء الرابط الخاص"); }
+          } else {
+            toast("تم إنشاء الرابط الخاص");
+          }
+        } catch (err) {
+          var msg = err && err.message ? err.message : "تعذر إنشاء رابط المشاركة.";
+          showError($("result-error"), msg);
+        } finally {
+          state.busy = false;
+          $("btn-share").disabled = false;
+        }
+      });
+
+      $("btn-copy-url").addEventListener("click", async function () {
+        var url = $("share-url").value;
+        if (!url) return;
+        try {
+          await navigator.clipboard.writeText(url);
+          toast("تم نسخ الرابط");
+        } catch (e) { fallbackCopy(url); }
+      });
+
+      /* Enter in dream textarea starts */
+      $("dream").addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          $("btn-start").click();
+        }
+      });
+    })();
   </script>
 </body>
 </html>

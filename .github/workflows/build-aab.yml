@@ -1,0 +1,175 @@
+name: Build AAB
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - ".github/workflows/build-aab.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: build-aab-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: app
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Expo prebuild (Android)
+        run: npx expo prebuild -p android --no-install
+
+      - name: Configure release signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "${KEYSTORE_BASE64:-}" ]; then
+            echo "No keystore secret — generating a throwaway keystore for this run."
+            keytool -genkeypair -v \
+              -keystore android/app/release.keystore \
+              -alias upload \
+              -keyalg RSA -keysize 2048 \
+              -validity 10000 \
+              -storepass android -keypass android \
+              -dname "CN=tafsirhulm, OU=app, O=tafsirhulm, L=web, ST=web, C=EG"
+            STORE_PASS=android
+            KEY_PASS=android
+            KEY_ALIAS_VAL=upload
+          else
+            echo "$KEYSTORE_BASE64" | base64 -d > android/app/release.keystore
+            STORE_PASS="$KEYSTORE_PASSWORD"
+            KEY_PASS="${KEY_PASSWORD:-$KEYSTORE_PASSWORD}"
+            KEY_ALIAS_VAL="${KEY_ALIAS:-upload}"
+          fi
+
+          BUILD_GRADLE=android/app/build.gradle
+          if [ ! -f "$BUILD_GRADLE" ]; then
+            BUILD_GRADLE=android/app/build.gradle.kts
+          fi
+
+          export BUILD_GRADLE STORE_PASS KEY_PASS KEY_ALIAS_VAL
+          python3 <<'PY'
+          import os, re, pathlib
+          path = os.environ["BUILD_GRADLE"]
+          store_pass = os.environ["STORE_PASS"]
+          key_pass = os.environ["KEY_PASS"]
+          key_alias = os.environ["KEY_ALIAS_VAL"]
+          text = pathlib.Path(path).read_text()
+          snippet = (
+              "\n    android {\n"
+              "        signingConfigs {\n"
+              "            release {\n"
+              '                storeFile file("release.keystore")\n'
+              f'                storePassword "{store_pass}"\n'
+              f'                keyAlias "{key_alias}"\n'
+              f'                keyPassword "{key_pass}"\n'
+              "            }\n"
+              "        }\n"
+              "    }\n"
+          )
+          if "signingConfigs" not in text:
+              if "buildTypes" in text:
+                  text = text.replace("buildTypes", snippet + "\n    buildTypes", 1)
+              else:
+                  text = text.replace("android {", "android {" + snippet, 1)
+          text = re.sub(
+              r"buildTypes\s*\{\s*release\s*\{",
+              lambda m: m.group(0)
+              if "signingConfig" in m.group(0)
+              else m.group(0).replace(
+                  "release {",
+                  "release {\n            signingConfig signingConfigs.release",
+                  1,
+              ),
+              text,
+              count=1,
+              flags=re.S,
+          )
+          # if the simple replace above missed nested braces, force the line
+          if "signingConfig signingConfigs.release" not in text:
+              text = re.sub(
+                  r"(buildTypes\s*\{[^}]*release\s*\{)",
+                  r"\1\n            signingConfig signingConfigs.release",
+                  text,
+                  count=1,
+                  flags=re.S,
+              )
+          pathlib.Path(path).write_text(text)
+          print("patched", path)
+          PY
+
+      - name: Build release AAB
+        run: |
+          cd android
+          ./gradlew bundleRelease --no-daemon
+
+      - name: Collect AAB
+        id: aab
+        run: |
+          set -euo pipefail
+          AAB=$(ls android/app/build/outputs/bundle/release/*.aab | head -n1)
+          echo "path=$AAB" >> "$GITHUB_OUTPUT"
+          cp "$AAB" app-release.aab
+          ls -lh app-release.aab
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tafsirhulm-aab-${{ github.run_number }}
+          path: app/app-release.aab
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Attach to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="app-build-${{ github.run_number }}"
+          gh release create "$TAG" app-release.aab \
+            --repo "${{ github.repository }}" \
+            --title "AAB build ${{ github.run_number }}" \
+            --notes "Automated Android App Bundle from \`app/\` (commit ${{ github.sha }})." \
+            || gh release upload "$TAG" app-release.aab --repo "${{ github.repository }}" --clobber
+          # keep a rolling "latest-aab" release pointer
+          gh release view latest-aab --repo "${{ github.repository }}" >/dev/null 2>&1 && \
+            gh release upload latest-aab app-release.aab --repo "${{ github.repository }}" --clobber || \
+            gh release create latest-aab app-release.aab \
+              --repo "${{ github.repository }}" \
+              --title "Latest AAB" \
+              --notes "Rolling pointer to the most recent successful AAB build." \
+              --latest=false
+          echo "Release: https://github.com/${{ github.repository }}/releases/tag/$TAG"
+          echo "Latest:  https://github.com/${{ github.repository }}/releases/tag/latest-aab"
