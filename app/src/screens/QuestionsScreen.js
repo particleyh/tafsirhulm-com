@@ -13,6 +13,7 @@ import {
 import { colors, radius, spacing, shadows } from "../theme";
 import { getInterpretation } from "../lib/api";
 import { getCooldownLeftSec, setCooldownSec } from "../lib/storage";
+import { showRewardedAd } from "../lib/ads";
 
 export default function QuestionsScreen({ route, navigation }) {
   const { dream, gender, guestId, questions } = route.params;
@@ -27,6 +28,7 @@ export default function QuestionsScreen({ route, navigation }) {
 
   function setAnswerAt(i, value) {
     setAnswers((prev) => {
+      if (prev[i] === value) return prev;
       const next = [...prev];
       next[i] = value;
       return next;
@@ -37,6 +39,10 @@ export default function QuestionsScreen({ route, navigation }) {
     if (busy) return;
     setBusy(true);
     setError("");
+
+    try {
+      await showRewardedAd({ timeoutMs: 10000 });
+    } catch {}
 
     const left = await getCooldownLeftSec();
     if (left > 0) {
@@ -73,17 +79,7 @@ export default function QuestionsScreen({ route, navigation }) {
     }
   }
 
-  function onNext() {
-    if (busy) return;
-    setError("");
-    if (!isLast) {
-      setIndex((i) => i + 1);
-      return;
-    }
-    finish();
-  }
-
-  function onSkip() {
+  function goNext() {
     if (busy) return;
     setError("");
     if (!isLast) {
@@ -151,15 +147,15 @@ export default function QuestionsScreen({ route, navigation }) {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.ghostBtn}
-            onPress={onSkip}
+            onPress={goNext}
             disabled={busy}
           >
-            <Text style={styles.ghostText}>تخطي السؤال</Text>
+            <Text style={styles.ghostText}>تخطي</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.85}
             style={[styles.nextBtn, shadows.gold]}
-            onPress={onNext}
+            onPress={goNext}
             disabled={busy}
           >
             <Text style={styles.nextText}>

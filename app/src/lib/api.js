@@ -112,6 +112,7 @@ export async function createShare({ dream, gender, questions, answers, interpret
 }
 
 export function prettyInterpretation(raw) {
+  if (!raw) return "";
   try {
     const parsed = JSON.parse(raw);
     if (parsed && typeof parsed === "object") {
@@ -127,7 +128,14 @@ export function prettyInterpretation(raw) {
       if (title) out += `${title}\n\n`;
       if (body) out += body;
       if (symbols && symbols.length) {
-        out += `\n\nرموز الحلم: ${symbols.join("، ")}`;
+        const labels = symbols.map((s) =>
+          typeof s === "string" ? s : s.symbol || s.name || s.title || ""
+        ).filter(Boolean);
+        if (labels.length) out += `\n\nرموز الحلم: ${labels.join("، ")}`;
+      }
+      const conclusion = parsed.conclusion || parsed.summary || "";
+      if (conclusion && body && !body.includes(conclusion)) {
+        out += `\n\n${conclusion}`;
       }
       return out || raw;
     }

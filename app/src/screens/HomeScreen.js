@@ -103,6 +103,7 @@ export default function HomeScreen({ navigation }) {
             onChangeText={setDream}
             textAlignVertical="top"
           />
+          <Text style={styles.chars}>{dream.trim().length}/3000</Text>
 
           <View style={styles.genderRow}>
             {[
@@ -213,6 +214,13 @@ const styles = StyleSheet.create({
     padding: 14,
     fontSize: 16,
     lineHeight: 26,
+  },
+  chars: {
+    color: colors.muted,
+    fontSize: 11,
+    textAlign: "left",
+    marginTop: 6,
+    writingDirection: "ltr",
   },
   genderRow: {
     flexDirection: "row",
