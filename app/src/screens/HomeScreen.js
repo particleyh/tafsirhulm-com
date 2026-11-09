@@ -14,7 +14,8 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors, radius, spacing, shadows } from "../theme";
 import { startInterpretation } from "../lib/api";
-import { getCooldownLeftSec, setCooldownSec } from "../lib/storage";
+import { getCooldownLeftSec } from "../lib/storage";
+import { toUserMessage } from "../lib/errors";
 
 export default function HomeScreen({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -53,15 +54,7 @@ export default function HomeScreen({ navigation }) {
         questions,
       });
     } catch (err) {
-      let msg =
-        err && err.message ? err.message : "حدث خطأ أثناء تجهيز الأسئلة.";
-      if (err && err.status === 429 && err.data && err.data.retry_after) {
-        await setCooldownSec(err.data.retry_after);
-        msg = err.data.error || msg;
-      } else if (err && err.name === "AbortError") {
-        msg = "انتهت المهلة، تحقق من اتصالك وحاول مجدداً.";
-      }
-      setError(msg);
+      setError(await toUserMessage(err, "حدث خطأ أثناء تجهيز الأسئلة."));
     } finally {
       setBusy(false);
     }

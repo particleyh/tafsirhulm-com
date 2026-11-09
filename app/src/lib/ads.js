@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import mobileAdsDefault, {
+import mobileAds, {
   BannerAd,
   RewardedAd,
   RewardedAdEventType,
@@ -7,66 +7,47 @@ import mobileAdsDefault, {
   TestIds,
 } from "react-native-google-mobile-ads";
 
-const mobileAds = mobileAdsDefault;
-
 export const ADS = {
   FORCE_TEST_ADS: false,
-  PRODUCTION_BANNER_ID: "ca-app-pub-5275292033164657/7222353589",
-  PRODUCTION_REWARDED_ID: "ca-app-pub-5275292033164657/8202077543",
+  BANNER: "ca-app-pub-5275292033164657/7222353589",
+  REWARDED: "ca-app-pub-5275292033164657/8202077543",
 };
 
+export { BannerAd };
+
+const isAndroid = Platform.OS === "android";
 let adsReady = false;
 let initPromise = null;
 
 export function initAds() {
   if (adsReady) return Promise.resolve(true);
-  if (Platform.OS !== "android") return Promise.resolve(false);
+  if (!isAndroid) return Promise.resolve(false);
   if (!initPromise) {
-    initPromise = (async () => {
-      try {
-        if (mobileAds && typeof mobileAds.initialize === "function") {
-          await mobileAds.initialize();
-        }
+    initPromise = mobileAds
+      .initialize()
+      .then(() => {
         adsReady = true;
         return true;
-      } catch {
-        adsReady = false;
-        return false;
-      }
-    })();
+      })
+      .catch(() => false);
   }
   return initPromise;
 }
 
-export function bannerUnitId() {
-  if (ADS.FORCE_TEST_ADS) return TestIds.ADAPTIVE_BANNER;
-  return ADS.PRODUCTION_BANNER_ID;
-}
+export const bannerUnitId = () =>
+  ADS.FORCE_TEST_ADS ? TestIds.ADAPTIVE_BANNER : ADS.BANNER;
 
-export function rewardedUnitId() {
-  if (ADS.FORCE_TEST_ADS) return TestIds.REWARDED;
-  return ADS.PRODUCTION_REWARDED_ID;
-}
+export const rewardedUnitId = () =>
+  ADS.FORCE_TEST_ADS ? TestIds.REWARDED : ADS.REWARDED;
 
-export function getBannerAd() {
-  return BannerAd;
-}
-
-/**
- * Show a rewarded ad if available. Resolves when closed/failed/timeout.
- * Never blocks the user permanently.
- */
+/** Show rewarded ad; always resolves, never blocks the user. */
 export async function showRewardedAd({ timeoutMs = 12000 } = {}) {
-  if (Platform.OS !== "android") return true;
+  if (!isAndroid) return true;
   try {
     await initAds();
-    const unitId = rewardedUnitId();
-    if (!unitId || !RewardedAd) return true;
-
-    const ad = RewardedAd.createForAdRequest(unitId, {
+    const ad = RewardedAd.createForAdRequest(rewardedUnitId(), {
       requestNonPersonalizedAdsOnly: true,
     });
-
     return await new Promise((resolve) => {
       let settled = false;
       const subs = [];
@@ -74,16 +55,14 @@ export async function showRewardedAd({ timeoutMs = 12000 } = {}) {
         if (settled) return;
         settled = true;
         clearTimeout(timer);
-        subs.forEach((unsub) => {
+        subs.forEach((u) => {
           try {
-            unsub && unsub();
+            u && u();
           } catch {}
         });
         resolve(true);
       };
-
       const timer = setTimeout(done, timeoutMs);
-
       try {
         subs.push(
           ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
@@ -92,7 +71,6 @@ export async function showRewardedAd({ timeoutMs = 12000 } = {}) {
         );
         subs.push(ad.addAdEventListener(AdEventType.ERROR, done));
         subs.push(ad.addAdEventListener(AdEventType.CLOSED, done));
-        subs.push(ad.addAdEventListener(AdEventType.OPENED, () => {}));
         ad.load();
       } catch {
         done();

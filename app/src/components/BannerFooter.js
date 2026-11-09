@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Platform } from "react-native";
 import { colors } from "../theme";
-import { initAds, bannerUnitId, getBannerAd } from "../lib/ads";
+import { initAds, bannerUnitId, BannerAd } from "../lib/ads";
 
 export default function BannerFooter({ safeBottom = 0 }) {
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const unitId = bannerUnitId();
-  const BannerAd = getBannerAd();
 
   useEffect(() => {
     let alive = true;
-    initAds().then((ok) => {
-      if (alive) setReady(!!ok);
-    });
+    initAds().then((ok) => alive && setReady(!!ok));
     return () => {
       alive = false;
     };
   }, []);
 
-  if (Platform.OS !== "android" || failed || !ready || !BannerAd || !unitId) {
+  if (Platform.OS !== "android" || failed || !ready) {
     return <View style={{ height: safeBottom ? Math.min(safeBottom, 16) : 0 }} />;
   }
 
   return (
     <View style={[styles.wrap, { paddingBottom: safeBottom }]}>
       <BannerAd
-        unitId={unitId}
+        unitId={bannerUnitId()}
         size="ANCHORED_ADAPTIVE_BANNER"
         requestOptions={{ requestNonPersonalizedAdsOnly: true }}
         onAdFailedToLoad={() => setFailed(true)}

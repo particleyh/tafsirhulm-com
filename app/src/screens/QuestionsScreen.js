@@ -13,6 +13,7 @@ import {
 import { colors, radius, spacing, shadows } from "../theme";
 import { getInterpretation } from "../lib/api";
 import { getCooldownLeftSec, setCooldownSec } from "../lib/storage";
+import { toUserMessage } from "../lib/errors";
 import { showRewardedAd } from "../lib/ads";
 
 export default function QuestionsScreen({ route, navigation }) {
@@ -65,15 +66,7 @@ export default function QuestionsScreen({ route, navigation }) {
         interpretation,
       });
     } catch (err) {
-      let msg =
-        err && err.message ? err.message : "حدث خطأ أثناء الحصول على التفسير.";
-      if (err && err.status === 429 && err.data && err.data.retry_after) {
-        await setCooldownSec(err.data.retry_after);
-        msg = err.data.error || msg;
-      } else if (err && err.name === "AbortError") {
-        msg = "انتهت المهلة، تحقق من اتصالك وحاول مجدداً.";
-      }
-      setError(msg);
+      setError(await toUserMessage(err, "حدث خطأ أثناء الحصول على التفسير."));
     } finally {
       setBusy(false);
     }

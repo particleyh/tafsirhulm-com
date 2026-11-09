@@ -51,6 +51,29 @@ jobs:
       - name: Expo prebuild (Android)
         run: npx expo prebuild -p android --no-install
 
+      - name: Optimize release size
+        run: |
+          set -euo pipefail
+          sed -i 's/^reactNativeArchitectures=.*/reactNativeArchitectures=arm64-v8a,armeabi-v7a/' android/gradle.properties
+          printf '\nandroid.enableMinifyInReleaseBuilds=true\nandroid.enableShrinkResourcesInReleaseBuilds=true\n' >> android/gradle.properties
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path("android/app/build.gradle")
+          text = path.read_text()
+          if "debugSymbolLevel" not in text:
+              needle = "        release {\n"
+              if needle not in text:
+                  raise SystemExit("release { block not found")
+              inject = needle + "            ndk {\n                debugSymbolLevel 'NONE'\n            }\n"
+              text = text.replace(needle, inject, 1)
+              path.write_text(text)
+              print("injected debugSymbolLevel NONE")
+          else:
+              print("debugSymbolLevel already present")
+          PY
+          echo "--- gradle.properties ---"
+          grep -E 'reactNativeArchitectures|enableMinify|enableShrink' android/gradle.properties
+
       - name: Configure release signing
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -84,52 +107,112 @@ jobs:
           fi
 
           export BUILD_GRADLE STORE_PASS KEY_PASS KEY_ALIAS_VAL
-          python3 <<'PY'
+          python3 - <<'PY'
           import os, re, pathlib
+
           path = os.environ["BUILD_GRADLE"]
           store_pass = os.environ["STORE_PASS"]
           key_pass = os.environ["KEY_PASS"]
           key_alias = os.environ["KEY_ALIAS_VAL"]
           text = pathlib.Path(path).read_text()
-          snippet = (
-              "\n    android {\n"
-              "        signingConfigs {\n"
+
+          def find_matching_brace(s, open_pos):
+              depth = 0
+              for i in range(open_pos, len(s)):
+                  if s[i] == "{":
+                      depth += 1
+                  elif s[i] == "}":
+                      depth -= 1
+                      if depth == 0:
+                          return i
+              return -1
+
+          def has_release_signing_config(s):
+              m = re.search(r"signingConfigs\s*\{", s)
+              if not m:
+                  return False
+              open_pos = m.end() - 1
+              close = find_matching_brace(s, open_pos)
+              if close < 0:
+                  return False
+              block = s[open_pos:close + 1]
+              return bool(re.search(r"\brelease\s*\{", block))
+
+          release_cfg = (
               "            release {\n"
               '                storeFile file("release.keystore")\n'
               f'                storePassword "{store_pass}"\n'
               f'                keyAlias "{key_alias}"\n'
               f'                keyPassword "{key_pass}"\n'
               "            }\n"
-              "        }\n"
-              "    }\n"
           )
-          if "signingConfigs" not in text:
-              if "buildTypes" in text:
-                  text = text.replace("buildTypes", snippet + "\n    buildTypes", 1)
+
+          if not has_release_signing_config(text):
+              m = re.search(r"signingConfigs\s*\{", text)
+              if not m:
+                  block = "    signingConfigs {\n" + release_cfg + "    }\n"
+                  if "buildTypes" not in text:
+                      raise SystemExit("no buildTypes")
+                  text = text.replace("buildTypes", block + "    buildTypes", 1)
+                  print("created signingConfigs block")
               else:
-                  text = text.replace("android {", "android {" + snippet, 1)
-          text = re.sub(
-              r"buildTypes\s*\{\s*release\s*\{",
-              lambda m: m.group(0)
-              if "signingConfig" in m.group(0)
-              else m.group(0).replace(
-                  "release {",
-                  "release {\n            signingConfig signingConfigs.release",
-                  1,
-              ),
-              text,
-              count=1,
-              flags=re.S,
-          )
-          # if the simple replace above missed nested braces, force the line
-          if "signingConfig signingConfigs.release" not in text:
-              text = re.sub(
-                  r"(buildTypes\s*\{[^}]*release\s*\{)",
-                  r"\1\n            signingConfig signingConfigs.release",
-                  text,
-                  count=1,
-                  flags=re.S,
-              )
+                  open_pos = m.end() - 1
+                  close = find_matching_brace(text, open_pos)
+                  if close < 0:
+                      raise SystemExit("unbalanced signingConfigs")
+                  text = text[:close] + release_cfg + text[close:]
+                  print("inserted release into signingConfigs")
+          else:
+              print("release signingConfig already present")
+
+          m = re.search(r"buildTypes\s*\{", text)
+          if not m:
+              raise SystemExit("no buildTypes")
+          bt_open = m.end() - 1
+          bt_close = find_matching_brace(text, bt_open)
+          if bt_close < 0:
+              raise SystemExit("unbalanced buildTypes")
+
+          rm = re.search(r"\brelease\s*\{", text[bt_open:bt_close + 1])
+          if not rm:
+              raise SystemExit("no release in buildTypes")
+          rel_open = bt_open + rm.end() - 1
+          rel_close = find_matching_brace(text, rel_open)
+          if rel_close < 0:
+              raise SystemExit("unbalanced release")
+          rel_block = text[rel_open:rel_close + 1]
+
+          if "signingConfig signingConfigs.release" not in rel_block:
+              if re.search(r"signingConfig\s+signingConfigs\.\w+", rel_block):
+                  rel_block = re.sub(
+                      r"signingConfig\s+signingConfigs\.\w+",
+                      "signingConfig signingConfigs.release",
+                      rel_block,
+                      count=1,
+                  )
+              else:
+                  rel_block = rel_block.replace(
+                      "release {",
+                      "release {\n            signingConfig signingConfigs.release",
+                      1,
+                  )
+              text = text[:rel_open] + rel_block + text[rel_close + 1:]
+              print("release buildType now uses signingConfigs.release")
+          else:
+              print("release buildType already correct")
+
+          if not has_release_signing_config(text):
+              raise SystemExit("validation: release signingConfig missing")
+          m = re.search(r"buildTypes\s*\{", text)
+          bt_open = m.end() - 1
+          bt_close = find_matching_brace(text, bt_open)
+          rm = re.search(r"\brelease\s*\{", text[bt_open:bt_close + 1])
+          rel_open = bt_open + rm.end() - 1
+          rel_close = find_matching_brace(text, rel_open)
+          rel_block = text[rel_open:rel_close + 1]
+          if "signingConfig signingConfigs.release" not in rel_block:
+              raise SystemExit("validation: release buildType not wired")
+
           pathlib.Path(path).write_text(text)
           print("patched", path)
           PY
@@ -167,7 +250,6 @@ jobs:
             --title "AAB build ${{ github.run_number }}" \
             --notes "Automated Android App Bundle from \`app/\` (commit ${{ github.sha }})." \
             || gh release upload "$TAG" app-release.aab --repo "${{ github.repository }}" --clobber
-          # keep a rolling "latest-aab" release pointer
           gh release view latest-aab --repo "${{ github.repository }}" >/dev/null 2>&1 && \
             gh release upload latest-aab app-release.aab --repo "${{ github.repository }}" --clobber || \
             gh release create latest-aab app-release.aab \
