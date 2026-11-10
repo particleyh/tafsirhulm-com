@@ -78,7 +78,7 @@ export default function HomeScreen({ navigation }) {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.title}>مفسّر الأحلام{"\n"}بالذكاء الاصطناعي</Text>
+          <Text style={styles.title}>مفسّر الأحلام{"\n"}</Text>
           <Text style={styles.subtitle}>
             اكتب حلمك، أجب عن أسئلة قصيرة، واحصل على تفسير فوري خلال لحظات.
           </Text>
@@ -130,9 +130,9 @@ export default function HomeScreen({ navigation }) {
 
           <TouchableOpacity
             activeOpacity={0.85}
-            style={[styles.cta, (!canSubmit || busy) && styles.ctaDisabled, shadows.gold]}
+            style={[styles.cta, (!canSubmit | busy) && styles.ctaDisabled, shadows.gold]}
             onPress={onStart}
-            disabled={busy || !canSubmit}
+            disabled={busy | !canSubmit}
           >
             {busy ? (
               <ActivityIndicator color="#1A1405" />
