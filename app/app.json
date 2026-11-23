@@ -1,7 +1,7 @@
 {
   "name": "تفسير الاحلام - مفسر الجد حلمي",
   "slug": "hlamt",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "orientation": "portrait",
   "icon": "./assets/icon.png",
   "userInterfaceStyle": "dark",
@@ -22,12 +22,13 @@
     },
     "edgeToEdgeEnabled": true,
     "package": "com.tafsirhulm",
-    "versionCode": 19
+    "versionCode": 20
   },
   "web": {
     "favicon": "./assets/favicon.png"
   },
   "plugins": [
+    "./plugins/withOptionalPortrait",
     [
       "react-native-google-mobile-ads",
       {
